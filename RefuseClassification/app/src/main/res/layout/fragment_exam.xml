@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL, XmlUnusedNamespaceDeclaration -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/xui_config_color_white">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="25sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:id="@+id/btn_recycling"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:text="@string/title_recycling"
+            android:drawableTop="@drawable/bg1"
+            android:layout_margin="10dp"
+            android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/btn_harmfulwaste"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:text="@string/title_harmfulwaste"
+            android:drawableTop="@drawable/bg2"
+            android:layout_margin="10dp"
+            android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        tools:ignore="ObsoleteLayoutParam">
+        <TextView
+            android:id="@+id/btn_wetgarbage"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:text="@string/title_wetgarbage"
+            android:drawableTop="@drawable/bg3"
+            android:layout_margin="10dp"
+            android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/btn_drygarbage"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:text="@string/title_drygarbage"
+            android:drawableTop="@drawable/bg4"
+            android:layout_margin="10dp"
+            android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_conunt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|top"
+        android:textSize="20sp"
+        android:text="1/10"
+        android:layout_weight="1"/>
+</LinearLayout>

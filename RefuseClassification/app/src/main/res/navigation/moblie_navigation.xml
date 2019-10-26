@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/moblie_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.umeng.soexample.fragment.HomeFragment"
+        tools:layout="@layout/fragment_home"
+        android:label="主页">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_found"
+        android:name="com.umeng.soexample.fragment.FoundFragment"
+        tools:layout="@layout/fragment_seekhelp"
+        android:label="发现">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="com.umeng.soexample.fragment.NewsFragment"
+        tools:layout="@layout/fragment_news"
+        android:label="新闻">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.umeng.soexample.fragment.MyHelperFragment"
+        tools:layout="@layout/fragment_help"
+        android:label="求助记录">
+    </fragment>
+
+</navigation>

@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='啥垃圾助手'

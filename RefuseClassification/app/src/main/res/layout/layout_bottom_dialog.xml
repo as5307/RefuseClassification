@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/xui_config_color_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20sp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第三方登录"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="qqLogin"
+            android:background="@drawable/qq"
+            />
+
+        <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="weixinLogin"
+            android:background="@drawable/weichat"
+            android:layout_marginStart="20dp" />
+
+
+        <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="sinaLogin"
+            android:background="@drawable/sinaweibo"
+            android:layout_marginStart="20dp" />
+    </LinearLayout>
+
+</LinearLayout>
