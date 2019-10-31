@@ -2,6 +2,7 @@ package com.umeng.soexample.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -19,7 +20,6 @@ import butterknife.ButterKnife;
 
 public class UserActivity extends BaseActivity {
 
-
     @BindView(R.id.tv_user_toolbar)
     TitleBar tvUserToollbaar;
     @BindView(R.id.iv_user_head)
@@ -27,7 +27,7 @@ public class UserActivity extends BaseActivity {
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
     @BindView(R.id.btn_btn_quit)
-    AppCompatButton btnBtnQuit;
+    Button btnBtnQuit;
 
     private String user_name;
     private String user_head;

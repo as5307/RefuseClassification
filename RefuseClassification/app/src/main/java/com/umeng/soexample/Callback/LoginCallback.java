@@ -8,5 +8,5 @@ import cn.sharesdk.framework.Platform;
 public interface  LoginCallback {
         void onError(String mag,Throwable arg2);
         void onSuccess(Platform platform);
-        void onQqCancel();
+        void onCancel();
 }

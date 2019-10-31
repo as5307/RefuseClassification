@@ -2,10 +2,12 @@ package com.umeng.soexample.model;
 
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.umeng.soexample.Callback.SqlCallback;
 import com.umeng.soexample.bean.Banner;
 import com.umeng.soexample.bean.Guide;
+import com.umeng.soexample.bean.Json;
 import com.umeng.soexample.bean.Post;
 import com.umeng.soexample.bean.User;
 
@@ -25,9 +27,9 @@ import cn.bmob.v3.listener.UploadFileListener;
 public  class SqlModeImpl implements SqlMode {
 
     @Override
-    public void getIdUserInfo(Activity activity, String userID, final SqlCallback.OnIdDataListeners onIdDataListeners) {
+    public void queryObjectId(Activity activity, String userId, final SqlCallback.OnIdDataListeners onIdDataListeners) {
         BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereEqualTo("userID", userID);
+        query.addWhereEqualTo("userId", userId);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
@@ -49,16 +51,27 @@ public  class SqlModeImpl implements SqlMode {
     }
 
     @Override
-    public void getPostInfo(Activity activity, String name, SqlCallback.OnPostListeners onPostListeners) {
+    public void queryPostInfo(Activity activity, String name, SqlCallback.OnPostListeners onPostListeners) {
         BmobQuery<Post> bmobQuery = new BmobQuery<Post>();
         bmobQuery.order("-createdAt");
-        bmobQuery.addWhereEqualTo("userName",name);
+        bmobQuery.addWhereEqualTo("userId",name);
 
         bmobQuery.findObjects(new FindListener<Post>() {
             @Override
             public void done(List<Post> list, BmobException e) {
                     onPostListeners.onSuccess(list,e);
                 }
+        });
+    }
+
+    @Override
+    public void queryJsonInfo(Context context, SqlCallback.OnJsonListeners onJsonListeners) {
+        BmobQuery<Json> bmobQuery = new BmobQuery<Json>();
+        bmobQuery.findObjects(new FindListener<Json>() {
+            @Override
+            public void done(List<Json> list, BmobException e) {
+                onJsonListeners.onSuccess(list.get(0).getUrl(),e);
+            }
         });
     }
 
@@ -76,21 +89,21 @@ public  class SqlModeImpl implements SqlMode {
 
 
     @Override
-    public void addDataSql(Activity activity, String name, String imageUrl, String id, final SqlCallback.OnAddDataListeners onAddDataListeners) {
+    public void addDataSql(Activity activity, String name, String imageUrl,String userId,final SqlCallback.OnAddListeners onAddDataListeners) {
         User user = new User();
         user.setName(name);
         user.setImageUrl(imageUrl);
-        user.setUserID(id);
+        user.setUserId(userId);
         user.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                onAddDataListeners.onAddDataSuccees(s,e);
+                onAddDataListeners.onAddSuccees(s,e);
             }
         });
     }
 
     @Override
-    public void uploadFileDataSql(String file, final SqlCallback.uploadFile uploadFile) {
+    public void uploadFileDataSql(String file, final SqlCallback.OnuploadFileListeners uploadFile) {
         BmobFile bmobFile=new BmobFile(new File(file));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override

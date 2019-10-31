@@ -35,8 +35,9 @@
     <item android:title="其他">
         <menu>
             <item
-                android:id="@+id/nav_update"
-                android:title="检查更新"/>
+                android:id="@+id/nav_about"
+                android:title="关于"
+                android:icon="@drawable/ic_about"/>
         </menu>
     </item>
 

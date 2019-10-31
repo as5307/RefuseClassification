@@ -246,7 +246,6 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
 
     }
 
-
     private void getBannerData() {
         mobMode.getBannerDataInfo(getActivity(), this);
     }
@@ -265,7 +264,6 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
 
 
     public class ItemView extends FrameLayout {
-
         @BindView(R.id.iv_title)
         ImageView ivTitle;
         @BindView(R.id.tv_title)

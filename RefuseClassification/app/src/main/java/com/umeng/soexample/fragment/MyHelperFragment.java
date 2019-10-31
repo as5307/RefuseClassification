@@ -24,7 +24,6 @@ import cn.bmob.v3.exception.BmobException;
 
 public class MyHelperFragment extends BaseFragment implements SqlCallback.OnPostListeners {
 
-
     @BindView(R.id.rl_help)
     RecyclerView rlHelp;
     private String TAG = this.getClass().getCanonicalName();
@@ -52,7 +51,7 @@ public class MyHelperFragment extends BaseFragment implements SqlCallback.OnPost
 
     @Override
     protected void initListeners() {
-        sqlMode.getPostInfo(getActivity(), Hawk.get("name"),this);
+        sqlMode.queryPostInfo(getActivity(), Hawk.get("userId"),this);
     }
 
     @Override

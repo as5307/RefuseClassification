@@ -20,5 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_head"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="登录"
+        android:textColor="@color/xui_config_color_white"/>
 </RelativeLayout>

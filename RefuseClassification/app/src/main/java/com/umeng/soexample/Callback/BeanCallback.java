@@ -22,8 +22,8 @@ public class BeanCallback{
         void onPopularError(Throwable throwable, String errorMag);
     }
 
-    public interface OnInformationGarbageListeners {
-        void onInformationSuccess(List<Information> list) throws JSONException;
-        void onInformationError(Throwable throwable, String errorMag);
+    public interface OnNewsListeners {
+        void onSuccess(List<Information> list) throws JSONException;
+        void onError(Throwable throwable, String errorMag);
     }
 }

@@ -1,4 +1,4 @@
-package com.umeng.soexample.utils;
+package com.umeng.soexample.utils.api;
 
 import android.content.Context;
 import com.trello.rxlifecycle2.android.ActivityEvent;

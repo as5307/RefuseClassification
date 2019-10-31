@@ -49,7 +49,7 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.comment_item, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.adapter_comment_item, viewGroup, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {

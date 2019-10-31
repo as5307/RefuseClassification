@@ -1,4 +1,4 @@
-package com.umeng.soexample.utils;
+package com.umeng.soexample.utils.api;
 
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

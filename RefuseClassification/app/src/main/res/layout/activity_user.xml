@@ -64,12 +64,15 @@
         android:layout_height="0.3dp"
         android:background="#299EE3"/>
 
-    <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+    <Button
         android:id="@+id/btn_btn_quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#299EE3"
-        android:layout_margin="20dp"
-        android:text="退出登录"
-        android:textColor="@color/xui_config_color_white"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="10dp"
+        android:background="#3c8dc4"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:text="退出登录" />
 </LinearLayout>

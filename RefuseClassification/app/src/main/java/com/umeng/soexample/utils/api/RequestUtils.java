@@ -1,4 +1,4 @@
-package com.umeng.soexample.utils;
+package com.umeng.soexample.utils.api;
 
 
 import android.content.Context;
@@ -35,9 +35,4 @@ public class  RequestUtils {
                 .subscribe(observer);
     }
 
-   /* public static void getGoodsData(Context context, String access_token,String image,BaseObserver<Goods> observer){
-     RetrofitUtils.getApiUrl(Constans.BaseUrl2).getGoodsData(access_token,image)
-                .compose(RxHelper.observableIO2Main(context))
-                .subscribe(observer);
-    }*/
 }

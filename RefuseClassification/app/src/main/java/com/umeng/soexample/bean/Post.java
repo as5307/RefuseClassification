@@ -14,20 +14,49 @@ public class Post extends BmobObject {
     private String userName;  // 名字
     private String content;   // 说说内容
 
+    private String userId;
+
     private String headImgUrl; //图片的UR
     private boolean haveIcon;  //判断是否有图片
 
-    private BmobRelation vote;
+
+    private BmobRelation rvote;
+    private BmobRelation hvote;
+    private BmobRelation wvote;
+    private BmobRelation dvote;
 
 
-    public BmobRelation getVote() {
-        return vote;
+    public BmobRelation getHvote() {
+        return hvote;
     }
 
-    public void setVote(BmobRelation vote) {
-        this.vote = vote;
+    public void setHvote(BmobRelation hvote) {
+        this.hvote = hvote;
     }
 
+    public BmobRelation getWvote() {
+        return wvote;
+    }
+
+    public void setWvote(BmobRelation wvote) {
+        this.wvote = wvote;
+    }
+
+    public BmobRelation getDvote() {
+        return dvote;
+    }
+
+    public void setDvote(BmobRelation dvote) {
+        this.dvote = dvote;
+    }
+
+    public BmobRelation getRvote() {
+        return rvote;
+    }
+
+    public void setRvote(BmobRelation rvote) {
+        this.rvote = rvote;
+    }
 
 
     public String getHeadImgUrl() {
@@ -74,5 +103,11 @@ public class Post extends BmobObject {
         this.haveIcon = haveIcon;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

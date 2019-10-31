@@ -91,10 +91,10 @@ public class ResultActivity extends BaseActivity {
                     } else {
                         textView.setText(result.getType());
                     }
+                    textView.setTextSize(15);
+                    textView.setPadding(20, 10, 20, 10);
+                    tableRow.addView(textView);
                 }
-                textView.setTextSize(15);
-                textView.setPadding(20, 10, 20, 10);
-                tableRow.addView(textView);
             }
         } else {
             Log.d(TAG, "addView: list为空");

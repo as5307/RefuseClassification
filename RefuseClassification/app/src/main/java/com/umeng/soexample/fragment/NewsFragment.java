@@ -18,6 +18,7 @@ import com.umeng.soexample.adapter.NewsAdapter;
 import com.umeng.soexample.base.BaseFragment;
 import com.umeng.soexample.bean.Information;
 import com.umeng.soexample.model.GarbageAPIModeImpl;
+import com.umeng.soexample.utils.Utils;
 import com.xuexiang.xui.utils.DensityUtils;
 import com.xuexiang.xui.utils.ThemeUtils;
 import com.xuexiang.xui.utils.WidgetUtils;
@@ -29,7 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class NewsFragment extends BaseFragment implements BeanCallback.OnInformationGarbageListeners {
+public class NewsFragment extends BaseFragment implements BeanCallback.OnNewsListeners {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -42,8 +43,6 @@ public class NewsFragment extends BaseFragment implements BeanCallback.OnInforma
     private static final String WORD = "垃圾分类";
     private static final int NUM = 10;
     private String TAG = this.getClass().getCanonicalName();
-
-
 
     @Override
     protected void initView() {
@@ -79,15 +78,15 @@ public class NewsFragment extends BaseFragment implements BeanCallback.OnInforma
             public void onItemClick(View itemView, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("url", newsAdapter.getItem(position).getUrl());
-                bundle.putString("title", newsAdapter.getItem(position).getTitle());
-                openPage(AgentWebActivity.class, bundle);
+                bundle.putString("title", "头条");
+                Utils.getInstance().goWeb(getActivity(),bundle);
             }
         });
     }
 
     private void getRefreshData() {
         Log.d(TAG, "getRefreshData: ");
-        garbageAPIMode.reuqestInformationData(getActivity(), WORD, NUM, this);
+        garbageAPIMode.reuqestNewsData(getActivity(), WORD, NUM, this);
     }
 
     @Override
@@ -98,14 +97,14 @@ public class NewsFragment extends BaseFragment implements BeanCallback.OnInforma
     }
 
     @Override
-    public void onInformationSuccess(List<Information> list) throws JSONException {
+    public void onSuccess(List<Information> list) throws JSONException {
         newsAdapter.refresh(list);
         Log.d(TAG, "onSuccess: ");
         refreshLayout.finishRefresh();
     }
 
     @Override
-    public void onInformationError(Throwable throwable, String errorMag) {
+    public void onError(Throwable throwable, String errorMag) {
         Log.e(TAG, "onError:" + errorMag);
     }
 }

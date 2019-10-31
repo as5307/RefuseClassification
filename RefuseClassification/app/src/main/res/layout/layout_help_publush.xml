@@ -20,6 +20,8 @@
         android:layout_weight="2"
         android:orientation="vertical">
 
+
+
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
@@ -27,6 +29,16 @@
             android:layout_margin="10dp"
             android:layout_marginStart="20dp"
             android:hint="输入求助的物品" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3c8dc4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="点击选择图片"
+            android:onClick="changImage"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_select_pic"
@@ -37,13 +49,6 @@
             android:layout_margin="10dp"
           />
 
-        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="添加图片"
-            android:onClick="changImage"
-            android:background="@color/blue"/>
     </LinearLayout>
 
 </LinearLayout>

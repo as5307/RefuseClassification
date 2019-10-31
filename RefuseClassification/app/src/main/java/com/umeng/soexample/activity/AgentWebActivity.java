@@ -50,8 +50,8 @@ public class AgentWebActivity extends BaseActivity {
     }
 
     private void gotWeb(String url) {
-        AgentWeb agentWeb = AgentWeb.with(this).
-                setAgentWebParent(llContent, new LinearLayout.LayoutParams(-1, -1))
+        AgentWeb.with(this)
+                .setAgentWebParent(llContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()

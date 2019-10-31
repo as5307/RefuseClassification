@@ -18,15 +18,14 @@ public class LoginNodeImpl implements LoginMode {
 
     private String TAG = "LoginNodeImpl";
 
-
     @Override
     public void login(Activity activity, String name,LoginCallback loginCallback) {
-        DialogUntil.getInstance().initLoadBox(activity, "正在登录....");
-        Platform qq = ShareSDK.getPlatform(name);
+        Platform platform = ShareSDK.getPlatform(name);
+        DialogUntil.getInstance().showLoadBox(activity, "正在登录....");
         //要功能不要数据
-        qq.authorize();
+        platform.authorize();
         // 回调信息，可以在这里获取基本的授权返回的信息，但是注意如果做提示和UI操作要传到主线程handler里去执行
-        qq.setPlatformActionListener(new PlatformActionListener() {
+        platform.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                 //登录成功
@@ -44,7 +43,7 @@ public class LoginNodeImpl implements LoginMode {
             @Override
             public void onCancel(Platform platform, int i) {
                 //授权取消
-                loginCallback.onQqCancel();
+                loginCallback.onCancel();
 
             }
         });

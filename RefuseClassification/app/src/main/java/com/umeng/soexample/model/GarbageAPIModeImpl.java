@@ -9,7 +9,7 @@ import com.umeng.soexample.base.BaseObserver;
 import com.umeng.soexample.bean.Definition;
 import com.umeng.soexample.bean.Information;
 import com.umeng.soexample.bean.Popular;
-import com.umeng.soexample.utils.RequestUtils;
+import com.umeng.soexample.utils.api.RequestUtils;
 
 import org.json.JSONException;
 
@@ -35,22 +35,6 @@ public class GarbageAPIModeImpl implements GarbageAPIMode {
     }
 
     @Override
-    public void reuqestExamData(Context context,int type, BeanCallback.OnPopularGarbageListeners beanCallback) {
-        RequestUtils.getPopularData(context, Constans.Key, type,new BaseObserver<Popular>() {
-            @Override
-            public void onSuccess(List<Popular> list) throws JSONException {
-                beanCallback.onPopularSuccess(list);
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, String errorMag) {
-                beanCallback.onPopularError(throwable, errorMag);
-
-            }
-        });
-    }
-
-    @Override
     public void reuqestPopularGarbage(Context context,BeanCallback.OnPopularGarbageListeners beanCallback) {
         RequestUtils.getPopularData(context, Constans.Key,new BaseObserver<Popular>() {
             @Override
@@ -68,36 +52,21 @@ public class GarbageAPIModeImpl implements GarbageAPIMode {
 
 
     @Override
-    public void reuqestInformationData(Context context,String word,int num, BeanCallback.OnInformationGarbageListeners beanCallback) {
+    public void reuqestNewsData(Context context,String word,int num, BeanCallback.OnNewsListeners newsListeners) {
         RequestUtils.getInformationData(context, Constans.Key,word,num ,new BaseObserver<Information>() {
             @Override
             public void onSuccess(List<Information> list) throws JSONException {
-                beanCallback.onInformationSuccess(list);
+                newsListeners.onSuccess(list);
             }
 
             @Override
             public void onFailure(Throwable throwable, String errorMag) {
-                beanCallback.onInformationError(throwable, errorMag);
+                newsListeners.onError(throwable, errorMag);
 
             }
         });
     }
 
-    /*@Override
-    public void reuqestImageGarbage(String access_token,String img, Context context, BeanCallback<Goods> beanCallback) {
-        RequestUtils.getGoodsData(context, access_token,img, new BaseObserver<Goods>() {
-            @Override
-            public void onSuccess(List<Goods> list) {
-                beanCallback.onSuccess(list);
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, String errorMag) {
-                beanCallback.onError(throwable, errorMag);
-
-            }
-        });
-    }*/
 }
 
 

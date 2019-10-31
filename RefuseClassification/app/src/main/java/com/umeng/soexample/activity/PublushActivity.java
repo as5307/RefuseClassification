@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import androidx.appcompat.widget.AppCompatImageView;
+ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.luck.picture.lib.PictureSelectionModel;
@@ -23,6 +23,7 @@ import com.umeng.soexample.Callback.SqlCallback;
 import com.umeng.soexample.R;
 import com.umeng.soexample.base.BaseActivity;
 import com.umeng.soexample.bean.Post;
+import com.umeng.soexample.model.SqlMode;
 import com.umeng.soexample.model.SqlModeImpl;
 import com.xuexiang.xui.widget.imageview.ImageLoader;
 
@@ -39,7 +40,7 @@ import id.zelory.compressor.Compressor;
 import io.reactivex.annotations.Nullable;
 
 
-public class PublushActivity extends BaseActivity {
+public class PublushActivity extends BaseActivity implements SqlCallback.OnuploadFileListeners {
 
     @BindView(R.id.et_content)
     EditText etContent;
@@ -63,15 +64,17 @@ public class PublushActivity extends BaseActivity {
     private String TAG = this.getClass().getCanonicalName();
 
     private ProgressDialog dialog;
-    private SqlModeImpl mobMode;
+    private SqlMode mobMode;
 
     private List<LocalMedia> mediaList;
     private static final int RESULT = 1;
 
+    private Post post;
+
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_edit;
+        return R.layout.layout_help_publush;
     }
 
     @Override
@@ -119,10 +122,11 @@ public class PublushActivity extends BaseActivity {
         //隐藏软硬盘
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-        final Post post = new Post();
+        post = new Post();
         post.setContent(etContent.getText().toString());
         post.setUserName(tvName);
         post.setUserIcon(title_image);
+        post.setUserId(Hawk.get("userId"));
         if (size == 0) {
             post.setHaveIcon(false);
             post.save(new SaveListener<String>() {
@@ -143,7 +147,6 @@ public class PublushActivity extends BaseActivity {
         final String filePaths = mediaList.get(0).getPath();
         File file = new File(filePaths);
         File compress = Compressor.getDefault(PublushActivity.this).compressToFile(file);
-
         dialog = new ProgressDialog(PublushActivity.this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setTitle("上传图片中...");
@@ -151,38 +154,7 @@ public class PublushActivity extends BaseActivity {
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-
-        mobMode.uploadFileDataSql(compress.getPath(), new SqlCallback.uploadFile() {
-            @Override
-            public void onUploadSuccess(String imagurl, BmobException e) {
-                if (e == null) {
-                    Log.d(TAG, "onUploadSuccess: " + imagurl);
-                    post.setHeadImgUrl(imagurl);
-                    post.setHaveIcon(true);
-                    post.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
-                            if (e == null) {
-                                Log.d(TAG, "done: 发表成功");
-                                finish();
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onUploadProgress(Integer value) {
-                dialog.setProgress(value);
-            }
-
-            @Override
-            public void onUploadError(int code, String msg) {
-                Log.d(TAG, "onUploadError: " + msg);
-                dialog.dismiss();
-            }
-        });
-
+        mobMode.uploadFileDataSql(compress.getPath(),this );
     }
 
 
@@ -228,5 +200,37 @@ public class PublushActivity extends BaseActivity {
 
     public void changImage(View view) {
         getPictureSelector().selectionMedia(mediaList).forResult(RESULT);
+    }
+
+    @Override
+    public void onUploadSuccess(String imagurl, BmobException e) {
+        if (e == null) {
+            Log.d(TAG, "onUploadSuccess: " + imagurl);
+            Log.d(TAG, "111111111111111111111111111" );
+            post.setHeadImgUrl(imagurl);
+            Log.d(TAG, "2222222222222222222222" );
+            post.setHaveIcon(true);
+            Log.d(TAG, "333333333333333333333333" );
+            post.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if (e == null) {
+                        Log.d(TAG, "done: 发表成功");
+                        finish();
+                    }else {
+                        Log.e(TAG, "done: "+e.getMessage() );
+                    }
+                }
+            });
+        }
+    }
+    @Override
+    public void onUploadProgress(Integer value) {
+        dialog.setProgress(value);
+    }
+
+    @Override
+    public void onUploadError(int code, String msg) {   Log.d(TAG, "onUploadError: " + msg);
+        dialog.dismiss();
     }
 }

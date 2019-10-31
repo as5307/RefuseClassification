@@ -18,6 +18,7 @@ import com.umeng.soexample.adapter.CommentAdapter;
 import com.umeng.soexample.base.BaseActivity;
 import com.umeng.soexample.bean.Comment;
 import com.umeng.soexample.bean.Post;
+import com.umeng.soexample.bean.User;
 import com.umeng.soexample.model.SqlModeImpl;
 import com.umeng.soexample.utils.DialogUntil;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
@@ -38,28 +40,27 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class CommentActivity extends BaseActivity {
 
+
     @BindView(R.id.tb_title)
     TitleBar tbTitle;
-
-    @BindView(R.id.comment_lv)
-    ListView commentLv;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_recycling)
-    TextView ivRecycling;
-    @BindView(R.id.iv_harmfulwaste)
-    TextView ivHarmfulwaste;
-    @BindView(R.id.iv_wetgarbage)
-    TextView ivWetgarbage;
-    @BindView(R.id.iv_drygarbage)
-    TextView ivDrygarbage;
+    @BindView(R.id.tv_recycling)
+    TextView tvRecycling;
+    @BindView(R.id.tv_harmfulwaste)
+    TextView tvHarmfulwaste;
+    @BindView(R.id.tv_wetgarbage)
+    TextView tvWetgarbage;
+    @BindView(R.id.tv_drygarbage)
+    TextView tvDrygarbage;
     @BindView(R.id.ll_vote)
     LinearLayout llVote;
     @BindView(R.id.image_layout)
     LinearLayout imageLayout;
+    @BindView(R.id.comment_lv)
+    ListView commentLv;
     @BindView(R.id.btn_write)
     AppCompatButton btnWrite;
-
     private String TAG = this.getClass().getCanonicalName();
 
     private String inputext;
@@ -103,9 +104,14 @@ public class CommentActivity extends BaseActivity {
         Bundle bundle = this.getIntent().getExtras();
         posttitle = bundle.getString("post_title");
         post_objectId = bundle.getString("post_objectId");
+        post = new Post();
+        post.setObjectId(post_objectId);
         postimage = bundle.getString("post_image");
         tvTitle.setText("<" + posttitle + ">" + "之垃圾分类？");
-
+        queryVote(tvRecycling, "rvote");
+        queryVote(tvHarmfulwaste, "hvote");
+        queryVote(tvWetgarbage, "wvote");
+        queryVote(tvDrygarbage, "dvote");
 
         if (postimage != null) {
             imageLayout.removeAllViews();
@@ -136,8 +142,6 @@ public class CommentActivity extends BaseActivity {
 
     //发表评论
     private void publishComment(String content) {
-        post = new Post();
-        post.setObjectId(post_objectId);
         final Comment comment = new Comment();
         comment.setContent(content);
         comment.setPost(post);
@@ -165,8 +169,6 @@ public class CommentActivity extends BaseActivity {
         list.clear();
         BmobQuery<Comment> query = new BmobQuery<Comment>();
         query.order("-createdAt");
-        Post post = new Post();
-        post.setObjectId(post_objectId);
         query.addWhereEqualTo("post", new BmobPointer(post));
         query.findObjects(new FindListener<Comment>() {
             @Override
@@ -181,10 +183,29 @@ public class CommentActivity extends BaseActivity {
         });
     }
 
+    /*
+     * 查询投票
+     * */
+    public void queryVote(TextView textView, String vote) {
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereRelatedTo(vote, new BmobPointer(post));
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> object, BmobException e) {
+                if (e == null) {
+                    Log.i("bmob", "查询个数：" + object.size());
+                    textView.setText(object.size() + "票");
+                } else {
+                    Log.i("bmob", "失败：" + e.getMessage());
+                }
+            }
+        });
+    }
+
     @OnClick(R.id.btn_write)
     public void onViewClicked() {
-        if (Hawk.get("isLogin")) {
-            DialogUntil.getInstance().initInputComment(this, "关于<" + posttitle + ">" + "之垃圾分类看法", new MaterialDialog.InputCallback() {
+        if (Hawk.get("name")!=null&& Hawk.get("imageUrl")!=null) {
+            DialogUntil.getInstance().showInputComment(this, "关于<" + posttitle + ">" + "之垃圾分类看法", new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog materialDialog, CharSequence charSequence) {
                             Log.d(TAG, "onInput: " + charSequence.toString());
@@ -196,12 +217,13 @@ public class CommentActivity extends BaseActivity {
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                             Log.d(TAG, "onClick: " + materialDialog.getInputEditText().getText().toString());
                             publishComment(materialDialog.getInputEditText().getText().toString());
-
+///
                         }
                     });
         } else {
-            DialogUntil.getInstance().initHintBox(CommentActivity.this, "请先登录");
+            DialogUntil.getInstance().showHintBox(CommentActivity.this, "请先登录");
         }
     }
+
 }
 

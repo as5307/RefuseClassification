@@ -46,6 +46,7 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
 
     @Override
     protected void initView() {
+        multipleStatusView.showLoading();
         foundAdapter = new FoundAdapter(getActivity());
     }
 
@@ -74,10 +75,10 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
         fabScrolling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Hawk.get("isLogin")){
+                if (Hawk.get("name")!=null&& Hawk.get("imageUrl")!=null){
                     openPage(PublushActivity.class);
                 }else {
-                    DialogUntil.getInstance().initHintBox(getActivity(), "请先去登录");
+                    DialogUntil.getInstance().showHintBox(getActivity(), "请先去登录");
                 }
             }
         });
@@ -121,6 +122,8 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
                     Log.d(TAG, "成功");
                     foundAdapter.addItem(list);
                     swipeStack.resetStack();
+                    multipleStatusView.showContent();
+
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                 }

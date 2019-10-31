@@ -25,8 +25,4 @@ public interface ApiUrl {
     @GET(Constans.Retrofit3)
     Observable<BaseReponse<Information>>  getInformationData(@Query("key") String key,@Query("word") String word,@Query("num")int num);
 
- /*   @Headers("Content-Type:application/x-www-form-urlencoded")
-    @FormUrlEncoded
-    @POST(Constans.Retrofit4)
-    Observable<BaseReponse<Goods>>  getGoodsData(@Field("access_token") String access_token, @Field("image") String image);*/
 }

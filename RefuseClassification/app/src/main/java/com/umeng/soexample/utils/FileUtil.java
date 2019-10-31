@@ -3,14 +3,9 @@ package com.umeng.soexample.utils;
 
 import java.io.*;
 
-/**
- * 鏂囦欢璇诲彇宸ュ叿绫�
- */
+
 public class FileUtil {
 
-    /**
-     * 璇诲彇鏂囦欢鍐呭锛屼綔涓哄瓧绗︿覆杩斿洖
-     */
     public static String readFileAsString(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -22,12 +17,13 @@ public class FileUtil {
         } 
 
         StringBuilder sb = new StringBuilder((int) (file.length()));
-        // 鍒涘缓瀛楄妭杈撳叆娴�  
+
         FileInputStream fis = new FileInputStream(filePath);  
-        // 鍒涘缓涓�涓暱搴︿负10240鐨凚uffer
-        byte[] bbuf = new byte[10240];  
-        // 鐢ㄤ簬淇濆瓨瀹為檯璇诲彇鐨勫瓧鑺傛暟  
-        int hasRead = 0;  
+
+        byte[] bbuf = new byte[10240];
+
+        int hasRead = 0;
+
         while ( (hasRead = fis.read(bbuf)) > 0 ) {  
             sb.append(new String(bbuf, 0, hasRead));  
         }  
@@ -35,9 +31,7 @@ public class FileUtil {
         return sb.toString();
     }
 
-    /**
-     * 鏍规嵁鏂囦欢璺緞璇诲彇byte[] 鏁扮粍
-     */
+
     public static byte[] readFileByBytes(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {

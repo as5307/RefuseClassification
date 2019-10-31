@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -23,7 +22,6 @@ import com.umeng.soexample.bean.Definition;
 import com.umeng.soexample.bean.Popular;
 import com.umeng.soexample.model.GarbageAPIModeImpl;
 import com.umeng.soexample.utils.DialogUntil;
-import com.umeng.soexample.utils.TTSUtils;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
 
@@ -34,7 +32,6 @@ import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class SeachActivity extends BaseActivity implements BeanCallback.OnBasicGarbageListeners,BeanCallback.OnPopularGarbageListeners{
 
@@ -115,11 +112,9 @@ public class SeachActivity extends BaseActivity implements BeanCallback.OnBasicG
                     String name=list_name.get(0);
                     String type=list_type.get(0);
                     String hint=name + "是" + type;
-                    DialogUntil.getInstance().initHintBox(SeachActivity.this, hint);
-                    TTSUtils.getInstance().speak(hint,SeachActivity.this);
+                    DialogUntil.getInstance().showHintBox(SeachActivity.this, hint);
                 }else {
-                    DialogUntil.getInstance().initHintBox(SeachActivity.this, "查不到相关信息");
-                    TTSUtils.getInstance().speak("查不到相关信息",SeachActivity.this);
+                    DialogUntil.getInstance().showHintBox(SeachActivity.this, "查不到相关信息");
                 }
                 return true;
             }
@@ -163,7 +158,7 @@ public class SeachActivity extends BaseActivity implements BeanCallback.OnBasicG
     }
 
     //获取的热门数据
-    private void getPopularGarbageData() {
+    private void getPopularGarbageData()  {
         garbageAPIMode.reuqestPopularGarbage(this, this);
     }
 

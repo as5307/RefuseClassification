@@ -118,10 +118,10 @@ public class FoundAdapter extends BaseAdapter {
             ImageLoader.get().loadImage(viewHolder.postNineGrid, post.getHeadImgUrl());
         }
 
-    /*    queryVote(viewHolder.recyclableVote, "rvote");
-        queryVote(viewHolder.harmfulVote, "hvote");
-        queryVote(viewHolder.wetVote, "wvote");
-        queryVote(viewHolder.dryVote, "dvote");*/
+        queryVote(viewHolder.rbRecyclable, "rvote");
+        queryVote(viewHolder.rbHarmful, "hvote");
+        queryVote(viewHolder.rbWet, "wvote");
+        queryVote(viewHolder.rbDry, "dvote");
 
         Log.d(TAG, "getView: " + post.toString());
         viewHolder.postUsername.setText(post.getUserName());
@@ -129,7 +129,6 @@ public class FoundAdapter extends BaseAdapter {
 
         number = mItems.size() - position;
         viewHolder.tvCount.setText("第" + number + "个求助");
-
         ImageLoader.get().loadImage(viewHolder.userIcon, post.getUserIcon());
 
         viewHolder.postShare.setOnClickListener(new View.OnClickListener() {
@@ -160,16 +159,25 @@ public class FoundAdapter extends BaseAdapter {
                 Log.d(TAG, "onCheckedChanged: " + checkedId);
                 switch (checkedId) {
                     case R.id.rb_recyclable:
+
                         Log.d(TAG, "recyclable: ");
+                        post = mItems.get(position);
+                        setVote(Hawk.get("objectId"),viewHolder.rbRecyclable,checkedId,"rvote");
                         break;
                     case R.id.rb_harmful:
                         Log.d(TAG, "harmful: ");
+                        post = mItems.get(position);
+                        setVote(Hawk.get("objectId"),viewHolder.rbHarmful,checkedId,"hvote");
                         break;
                     case R.id.rb_dry:
                         Log.d(TAG, "dry: ");
+                        post = mItems.get(position);
+                        setVote(Hawk.get("objectId"),viewHolder.rbDry,checkedId,"dvote");
                         break;
                     case R.id.rb_wet:
                         Log.d(TAG, "wet: ");
+                        post = mItems.get(position);
+                        setVote(Hawk.get("objectId"),viewHolder.rbWet,checkedId,"wvote");
                         break;
                 }
             }
@@ -193,38 +201,45 @@ public class FoundAdapter extends BaseAdapter {
     /*
   投票
   */
-    public void setVote(String objectid, TextView textView) {
+    public void setVote(String objectid, RadioButton radioButton,int checkedId, String vote) {
         user = new User();
         user.setObjectId(objectid);
         BmobRelation relation = new BmobRelation();
         relation.add(user);
-        post.setVote(relation);
+        setVoteType(checkedId,post,relation);
         post.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
                     Log.i("bmob", "投票成功");
+                    queryVote(radioButton,vote);
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage());
                 }
             }
         });
     }
-    private void setVote(TextView textView) {
-        user=new User();
-        user.setName(Hawk.get("name"));
-        user.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                setVote(s, textView);
-            }
-        });
+
+    private void setVoteType(int checkedId,Post post,BmobRelation relation ){
+        switch (checkedId){
+            case R.id.rb_recyclable:
+                post.setRvote(relation);
+                break;
+            case R.id.rb_harmful:
+                post.setHvote(relation);
+                break;
+            case R.id.rb_dry:
+                post.setDvote(relation);
+                break;
+            case R.id.rb_wet:
+                post.setWvote(relation);
+                break;
+        }
     }
     /*
      * 查询投票
      * */
-
-    public void queryVote(TextView textView, String vote) {
+    public void queryVote(RadioButton radioButton, String vote) {
         BmobQuery<User> query = new BmobQuery<User>();
         query.addWhereRelatedTo(vote, new BmobPointer(post));
         query.findObjects(new FindListener<User>() {
@@ -232,7 +247,7 @@ public class FoundAdapter extends BaseAdapter {
             public void done(List<User> object, BmobException e) {
                 if (e == null) {
                     Log.i("bmob", "查询个数：" + object.size());
-                    textView.setText(object.size() + "票");
+                    radioButton.setText(object.size() + "票");
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage());
                 }

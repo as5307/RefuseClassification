@@ -28,13 +28,16 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.orhanobut.hawk.Hawk;
 import com.umeng.soexample.Callback.BeanCallback;
 import com.umeng.soexample.Callback.LoginCallback;
+import com.umeng.soexample.Callback.SqlCallback;
 import com.umeng.soexample.Constans;
 import com.umeng.soexample.R;
 import com.umeng.soexample.bean.Definition;
 import com.umeng.soexample.bean.Result;
+import com.umeng.soexample.bean.User;
 import com.umeng.soexample.model.GarbageAPIModeImpl;
 import com.umeng.soexample.model.LoginMode;
 import com.umeng.soexample.model.LoginNodeImpl;
+import com.umeng.soexample.model.SqlMode;
 import com.umeng.soexample.model.SqlModeImpl;
 import com.umeng.soexample.utils.DialogUntil;
 import com.umeng.soexample.utils.FileUtil;
@@ -56,6 +59,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.exception.BmobException;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -70,7 +74,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements BeanCallback.OnBasicGarbageListeners, LoginCallback {
+public class MainActivity extends AppCompatActivity implements BeanCallback.OnBasicGarbageListeners, LoginCallback, SqlCallback.OnAddListeners,SqlCallback.OnIdDataListeners {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.nav_view)
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
 
     private RelativeLayout relativeLayout;
 
-    private SqlModeImpl sqlMode;
+    private SqlMode sqlMode;
 
     private String userid;
 
@@ -135,13 +139,13 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         list_result = new ArrayList<>();
-
         garbageAPIMode = new GarbageAPIModeImpl();
         imageView = navView.getHeaderView(0).findViewById(R.id.iv_head);
         textView = navView.getHeaderView(0).findViewById(R.id.tv_head);
         relativeLayout = navView.getHeaderView(0).findViewById(R.id.rl_head);
         mediaList = new ArrayList<>();
         loginMode = new LoginNodeImpl();
+        sqlMode=new SqlModeImpl();
         setSupportActionBar(toolbar);
         initListeners();
         initView();
@@ -149,12 +153,13 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     }
 
     private void initView() {
+        Utils.getInstance().checkUpdate(this,false);
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_found,
                 R.id.nav_news,
                 R.id.nav_help,
-                R.id.nav_update)
+                R.id.nav_about)
                 .setDrawerLayout(drawerLayout)
                 .build();
 
@@ -172,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
             textView.setText(Hawk.get("name"));
         }else {
             ImageLoader.get().loadImage(imageView, "http://tianping.hellgirl.top/2019/10/23/b2bef3cd407e571d804f2f5aada1d27d.png");
-            textView.setText("");
+            textView.setText("登录");
         }
     }
 
@@ -187,16 +192,7 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
                     startActivity(intent);
                 } else {
                     View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_bottom_dialog, null);
-                    bottomListSheetBuilder = new BottomSheet.BottomListSheetBuilder(MainActivity.this);
-                    bottomListSheetBuilder.addHeaderView(view).addItem("关闭").setOnSheetItemClickListener(new BottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
-                        @Override
-                        public void onClick(BottomSheet dialog, View itemView, int position, String tag) {
-                            dialog.dismiss();
-                        }
-                    })
-                            .setIsCenter(true)
-                            .build()
-                            .show();
+                    DialogUntil.getInstance().showBottomDialog(MainActivity.this,view);
                 }
             }
         });
@@ -304,35 +300,32 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
 
     @Override
     public void onBasicSuccess(List<Definition> list, String keyword, String score) throws JSONException {
-        result2 = new Result(keyword, score, tpye[list.get(0).getType()]);
-        Log.d(TAG, "onBasicSuccess: " + result2.toString());
-        list_result.add(result2);
-        if (list_result.size() == 5) {
-           openPage();
-        }
-    }
+            openPage(keyword,score,tpye[list.get(0).getType()]);
 
+    }
     @Override
     public void onBasicError(Throwable throwable, String errorMag, String keyword, String score) {
-        result2 = new Result(keyword, score, null);
-        Log.e(TAG, "onBasicError: " + errorMag);
-        list_result.add(result2);
-        if (list_result.size() == 5) {
-          openPage();
-        }
+          Log.e(TAG, "onBasicError: " + errorMag);
+          openPage(keyword,score,"检测不到");
     }
 
-    private void  openPage(){
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("result", list_result);
-        bundle.putString("image_path", imagePath);
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        Log.d("aaa","1111111111111111111");
+    private void  openPage(String keyword,String score,String type){
+        result2 = new Result(keyword, score, type);
+        list_result.add(result2);
+        if (list_result.size() == 5) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("result", list_result);
+            bundle.putString("image_path", imagePath);
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            list_result.clear();
+            Log.d("aaa", "1111111111111111111");
+        }
     }
 
     public void weixinLogin(View view) {
+
         loginMode.login(this, Wechat.NAME, this);
     }
 
@@ -360,15 +353,17 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                DialogUntil.getInstance().hideBottomListSheet();
                 ImageLoader.get().loadImage(imageView, imageUrl);
                 textView.setText(name);
             }
         });
-
-        Hawk.put("userId", userId);
+        Hawk.put("userId",userId);
         Hawk.put("name", name);
         Hawk.put("imageUrl", imageUrl);
         Hawk.put("isLogin", true);
+
+        sqlMode.addDataSql(this, name,imageUrl,userId,this);
     }
 
     @Override
@@ -384,10 +379,23 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     }
 
     @Override
-    public void onQqCancel() {
+    public void onCancel() {
         // 取消所有授权信息
         Log.d(TAG, "取消授权");
         DialogUntil.getInstance().hideLoad();
+    }
 
+    @Override
+    public void onAddSuccees(String s, BmobException e) {
+            if (e==null){
+                Hawk.put("objectId",s);
+            }else {
+                sqlMode.queryObjectId(this,userId,this);
+            }
+    }
+
+    @Override
+    public void onIdDataSuccess(List<User> t, BmobException e) {
+         Hawk.put("objectId",t.get(0).getObjectId());
     }
 }
