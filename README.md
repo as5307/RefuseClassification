@@ -53,9 +53,9 @@ public class Person extends BmobObject {
         this.address = address;
     }
 }
-
 ```
 #### 通过set方法直接存储数据
+
 ```
 Person p2 = new Person();
 p2.setName("lucky");
@@ -70,7 +70,6 @@ p2.save(new SaveListener<String>() {
         }
     }
 });
-
 ```
 
 ### 源码结构
