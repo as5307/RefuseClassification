@@ -7,7 +7,8 @@
 
 
 ### 项目功能结构
->>>>>![](http://tianping.hellgirl.top/2019/11/09/c5772a65405dd9f880abe59b79b69351.png)
+<img src="http://tianping.hellgirl.top/2019/11/09/c5772a65405dd9f880abe59b79b69351.png" width="200" height="100" alt="图片名称" align=center>
+
 
 
 ### 项目截图
