@@ -34,7 +34,7 @@ https://www.pgyer.com/3c9U 的链接打开安装app
 
 #### 云数据库结构
 <img src=“http://tianping.hellgirl.top/2019/11/09/30626eb74069815180fb75a45a3f33c4.png” width="600" height="400"  >
-#### 首先建立实体类继承BmobObject
+####  首先建立实体类继承BmobObject
 ```
 public class Person extends BmobObject {
     private String name;
