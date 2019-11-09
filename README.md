@@ -18,10 +18,12 @@
 ## 二、安装使用注意事项
 
 ### 项目安装
-#### clone GitHub链接https://github.com/as5307/RefuseClassification 的项目，用 Android Studio 导入项目
+#### clone GitHub链接 https://github.com/as5307/RefuseClassification 的项目，用 Android Studio 导入项目
  ### app安装
-#### 在手机百度网址上复制http://tianping.hellgirl.top/2019/10/31/5134a7b04088f1e180ab9fecd938a8dd.apk 的链接打开安装app
+####打开链接 https://www.pgyer.com/3c9U 的链接打开安装app
 
+#### 扫描二维码 
+![](http://tianping.hellgirl.top/2019/11/09/086a1f6840fa640c807e38a5e3c21710.png)
 ### 注意事项
 #### Android Studio  gradle版本至少为3.2.0以上，以及compileSdkVersion为28以上。
 
