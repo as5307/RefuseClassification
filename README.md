@@ -54,8 +54,8 @@ public class Person extends BmobObject {
     }
 }
 ```
-#### 通过set方法直接存储数据
 
+#### 通过set方法直接存储数据
 ```
 Person p2 = new Person();
 p2.setName("lucky");
