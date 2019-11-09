@@ -70,6 +70,7 @@ p2.save(new SaveListener<String>() {
         }
     }
 });
+
 ```
 
 ### 源码结构
@@ -81,7 +82,7 @@ p2.save(new SaveListener<String>() {
 ### 登录部分
 > MobTech全球领先的移动智能科技平台 的 ShareSDK完成第三方登录和分享
 
-### 首先，要去你要去各个社交平台里申请应用，拿到key信息，然后，在Gradle集成方式可以在Mob产品的module下面的build.gradle文件里面配置ShareSDK各个社交平台的key信息。最后，调用接口
+#### 首先，要去你要去各个社交平台里申请应用，拿到key信息，然后，在Gradle集成方式可以在Mob产品的module下面的build.gradle文件里面配置ShareSDK各个社交平台的key信息。最后，调用接口
 
 ```
 Platform plat = ShareSDK.getPlatform(Facebook.NAME);
