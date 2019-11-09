@@ -20,7 +20,8 @@
 ### 项目安装
 #### clone GitHub链接 https://github.com/as5307/RefuseClassification 的项目，用 Android Studio 导入项目
  ### app安装
-####打开链接 https://www.pgyer.com/3c9U 的链接打开安装app
+#### 打开链接 
+https://www.pgyer.com/3c9U 的链接打开安装app
 
 #### 扫描二维码 
 ![](http://tianping.hellgirl.top/2019/11/09/086a1f6840fa640c807e38a5e3c21710.png)
