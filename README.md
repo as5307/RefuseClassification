@@ -113,7 +113,7 @@ plat.authorize();
 plat.setPlatformActionListener(this)
 ```
 
-### Api数据获取
+### Api数据获取部分
 > 我采用的是天行数据的垃圾分类和新闻api，使用retrofit2+rxjava2的方式请求网络数据。
 
 #### 定义数据请求接口
@@ -132,7 +132,46 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
                 .build();
                 
   ApiUrl apiUrl=retrofit.create(ApiUrl.class)
-  
+  apiUrl.getAllData(XXXX,XXXX)
+  .compose(RxHelper.observableIO2Main(context))
+  .subscribe(new Observer<BaseReponse<Definition>>() {
+  @Override
+  public void onSubscribe(Disposable d) {   
+  }  
+  @Override
+  public void onNext(BaseReponse<Definition> definitionBaseReponse) 
+  }
+  @Override
+  public void onError(Throwable e) {
+  }
+  @Override
+  public void onComplete() {
+  }
+  });
   
 ```
+  ### 百度图片识别部分
+  >调用百度API通用物体识别
+  
+  #### 通过Okhttp发送Post请求获取access_token
+  ```
+        // 获取token地址
+        String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
+        // 官网获取的 API Key 更新为你注册的
+        String clientId = "64EbWZMY653g1H4N8zLiPGE1";
+        // 官网获取的 Secret Key 更新为你注册的
+        String clientSecret = "Q90BipsuoycjqUGeMxA1enakpaLlYTf9";
 
+        FormBody formBody = new FormBody.Builder()
+                .add("grant_type", "client_credentials")
+                .add("client_id", clientId)
+                .add("client_secret", clientSecret)
+                .build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url(authHost).post(formBody).build();
+  ```
+ #### 在URL中带上access_token参数,向API服务地址使用POST发送请求
+ 获取输出图片中的多个物体及场景标签
+  ```
+  HttpUtil.post(Constans.URL, access_token, param)
+  ```
