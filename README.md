@@ -170,8 +170,7 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(authHost).post(formBody).build();
   ```
- #### 在URL中带上access_token参数,向API服务地址使用POST发送请求
- 获取输出图片中的多个物体及场景标签
+ #### 在URL中带上access_token参数,向API服务地址使用POST发送请求获取输出图片中的多个物体及场景标签
   ```
   HttpUtil.post(Constans.URL, access_token, param)
   ```
