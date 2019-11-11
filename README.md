@@ -113,14 +113,26 @@ plat.authorize();
 plat.setPlatformActionListener(this)
 ```
 
-### 数据获取
-> 我采用的是天行数据的垃圾分类和新闻api，使用retrofit2+rxjava2的方式请求数据。
+### Api数据获取
+> 我采用的是天行数据的垃圾分类和新闻api，使用retrofit2+rxjava2的方式请求网络数据。
 
-定义数据请求接口
+#### 定义数据请求接口
 ```
 public interface ApiUrl {
 @GET(Constans.Retrofit)
 Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query("word") String word);
 ```
-
+#### 实现Retrofit2+Rxjava2请求
+```
+ Retrofit retrofit = new Retrofit.Builder().
+                client(okHttpClient)
+                .baseUrl(url)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+                
+  ApiUrl apiUrl=retrofit.create(ApiUrl.class)
+  
+  
+```
 
