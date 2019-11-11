@@ -176,14 +176,14 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
   ```
   
   ### 框架的使用
-  #### 1、![Hawk](https://github.com/orhanobut/hawk) 数据库框架
-  #### 2、![XUpdate](https://github.com/xuexiangjys/XUpdate/wiki) 版本更新框架
-  ####  3、![AgentWeb](https://github.com/Justson/AgentWeb) 网页框架
+  #### 1、![Hawk](https://github.com/orhanobut/hawk) 数据库库
+  #### 2、![XUpdate](https://github.com/xuexiangjys/XUpdate/wiki) 版本更新库
+  ####  3、![AgentWeb](https://github.com/Justson/AgentWeb) 加载网页库
   #### 4、![Swipestack](https://github.com/flschweiger/SwipeStack) 视图堆栈框架
   #### 5、![Broccoli](https://github.com/samlss/Broccoli) 预加载占位控件
   #### 6、![Xui](https://github.com/xuexiangjys/XUI/wiki) UI框架
-  #### 7、![PictureSelector](https://github.com/LuckSiege/PictureSelector) 图片选择框架
+  #### 7、![PictureSelector](https://github.com/LuckSiege/PictureSelector) 图片选择库
   #### 8、Retrofit2+Rxjava2+Okhttp 网络请求框架
-  #### 9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩框架
-  #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉和上拉刷新框架
+  #### 9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩库
+  #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉和上拉刷新库
   #### 11、![Butterknife](https://github.com/JakeWharton/butterknife) View注入框架
