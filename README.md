@@ -171,6 +171,7 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
         Request request = new Request.Builder().url(authHost).post(formBody).build();
   ```
  #### 在URL中带上access_token参数,向API服务地址使用POST发送请求获取,输出图片中的多个物体及场景标签
+ 
   ```
   HttpUtil.post(Constans.URL, access_token, param)
   ```
@@ -187,3 +188,9 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
   #### 9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩库
   #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉和上拉刷新库
   #### 11、![Butterknife](https://github.com/JakeWharton/butterknife) View注入框架
+
+  ==
+  ### 需要下载的工具类
+  #### 1、![HttpUtil](https://ai.baidu.com/file/544D677F5D4E4F17B4122FBD60DB82B3) 
+  #### 1、![FileUtil](https://ai.baidu.com/file/658A35ABAB2D404FBF903F64D47C1F72) 
+  
