@@ -30,7 +30,7 @@ https://www.pgyer.com/3c9U 的链接打开安装app
 
 ## 三、源码说明部分
 ### 后台部分
-> app的后台采用的bmob后端云，通过调用接口直接存储数据和图片,只有在发现这个功能才使用到
+> app的后台采用的bmob后端云，通过调用接口直接存储数据.删除数据、查询数据、上传图片
 
 #### 云数据库结构
 
@@ -73,6 +73,29 @@ p2.save(new SaveListener<String>() {
 });
 ```
 
+#### 上传文件
+```
+String picPath = "sdcard/temp.jpg";
+BmobFile bmobFile = new BmobFile(new File(picPath));
+bmobFile.uploadblock(new UploadFileListener() {
+
+    @Override
+    public void done(BmobException e) {
+        if(e==null){
+            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+            toast("上传文件成功:" + bmobFile.getFileUrl());
+        }else{
+            toast("上传文件失败：" + e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void onProgress(Integer value) {
+        // 返回的上传进度（百分比）
+    }
+});
+```
 ### 源码结构
 > 我采用的是MVC结构：M是指逻辑模型，V是指视图模型，C则是控制器。
 
