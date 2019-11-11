@@ -73,7 +73,7 @@ p2.save(new SaveListener<String>() {
 });
 ```
 
-#### 上传文件
+#### 通过Uploadblock上传文件
 ```
 String picPath = "sdcard/temp.jpg";
 BmobFile bmobFile = new BmobFile(new File(picPath));
