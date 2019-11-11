@@ -176,4 +176,12 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
   ```
   
   ### 框架的使用
-  ![Hawk](https://github.com/orhanobut/hawk) 数据库
+  1、![Hawk](https://github.com/orhanobut/hawk) 数据库
+  2、![XUpdate](https://github.com/xuexiangjys/XUpdate/wiki) 版本更新
+  3、![AgentWeb](https://github.com/Justson/AgentWeb) 网页
+  4、![Swipestack](https://github.com/flschweiger/SwipeStack) 视图堆栈
+  5、![Broccoli](https://github.com/samlss/Broccoli) 预加载占位控件
+  6、![Xui]https://github.com/xuexiangjys/XUI/wiki) UI框架
+  7、![PictureSelector](https://github.com/LuckSiege/PictureSelector) 图片选择
+  8、Retrofit2+Rxjava2+Okhttp 网络求框架
+  9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩
