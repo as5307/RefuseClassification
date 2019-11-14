@@ -18,13 +18,12 @@
 ## 二、安装使用注意事项
 
 ### 项目安装
-#### clone GitHub链接 https://github.com/as5307/RefuseClassification 的项目，用 Android Studio 导入项目
+#### git clone https://github.com/as5307/RefuseClassification.git 到电脑上，再用 Android Studio 导入项目
 ### app安装
-#### 打开链接 
-https://www.pgyer.com/3c9U 的链接打开安装app
+#### 打开链接 https://www.pgyer.com/AzZf 的链接打开安装app,密码123456
 
 #### 扫描二维码 
-![](http://tianping.hellgirl.top/2019/11/09/086a1f6840fa640c807e38a5e3c21710.png)
+![](http://tianping.hellgirl.top/2019/11/14/a1e28026408696e380791aa4d29cbe51.png)
 ### 注意事项
 #### Android Studio  gradle版本至少为3.2.0以上，以及compileSdkVersion为28以上。
 
@@ -97,7 +96,7 @@ bmobFile.uploadblock(new UploadFileListener() {
 });
 ```
 ### 源码结构
-> 我采用的是MVC结构：M是指逻辑模型，V是指视图模型，C则是控制器。
+> 我采用的是MVC模式：M是指逻辑模型，V是指视图模型，C则是控制器。
 
 ![](http://tianping.hellgirl.top/2019/11/01/b9e5963e4047ec68801c756ab654b3a2.png)
 
