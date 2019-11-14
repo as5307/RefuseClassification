@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">啥垃圾助手</string>
+
+
+    <!--垃圾分类-->
+
+    <string name="title_recycling">可回收物</string>
+
+    <string name="title_harmfulwaste">有害垃圾</string>
+
+    <string name="title_wetgarbage">湿垃圾</string>
+
+    <string name="title_drygarbage">干垃圾</string>
+
+    <!--登录-->
+
+
+    <string name="login">一键登录</string>
+
+    <string name="input_number">输入手机号码</string>
+
+    <string name="code">"获取验证码"</string>
+
+    <string name="quick_login">第三方快捷登录</string>
+
+    <!--查询-->
+
+
+    <string name="result_text">重新测试</string>
+
+    <string name="lab_logout_confirm">是否确认退出？</string>
+
+    <string name="lab_yes">是</string>
+
+    <string name="lab_no">否</string>
+
+    <!--Tab-->
+
+
+    <string name="tabl">主页</string>
+
+    <string name="tab2">求助</string>
+
+    <string name="tab3">资讯</string>
+
+    <string name="tab4">测试</string>
+
+    <string name="publish">发表</string>
+
+    <string name="result">识别结果</string>
+
+    <string name="vote">0票</string>
+
+    <string name="help">第一个垃圾分类求助</string>
+
+    <string name="come">来自</string>
+</resources>
