@@ -183,7 +183,7 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
   #### 5、![Broccoli](https://github.com/samlss/Broccoli) 预加载占位控件
   #### 6、![Xui](https://github.com/xuexiangjys/XUI/wiki) UI
   #### 7、![PictureSelector](https://github.com/LuckSiege/PictureSelector) 图片选择
-  #### 8、Retrofit2+Rxjava2+Okhttp 网络请求框架
+  #### 8、Retrofit2 网络请求框架
   #### 9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩
   #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉刷新
   #### 11、![Butterknife](https://github.com/JakeWharton/butterknife) View注入框架
