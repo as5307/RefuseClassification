@@ -98,7 +98,7 @@ bmobFile.uploadblock(new UploadFileListener() {
 ### 源码结构
 > 我采用的是MVC模式：M是指逻辑模型，V是指视图模型，C则是控制器。
 
-![](http://tianping.hellgirl.top/2019/11/01/b9e5963e4047ec68801c756ab654b3a2.png)
+![](http://tianping.hellgirl.top/2019/11/15/c1a24e0140b60419805a08d45018e670.png)
 
 
 ### 登录部分
@@ -180,12 +180,12 @@ Observable<BaseReponse<Definition>> getAllData(@Query("key") String key, @Query(
   #### 2、![XUpdate](https://github.com/xuexiangjys/XUpdate/wiki) 版本更新
   ####  3、![AgentWeb](https://github.com/Justson/AgentWeb) 加载网页
   #### 4、![Swipestack](https://github.com/flschweiger/SwipeStack) 视图堆栈
-  #### 5、![Broccoli](https://github.com/samlss/Broccoli) 预加载占位控件
+  #### 5、![Broccoli](https://github.com/samlss/Broccoli) 预加载占位
   #### 6、![Xui](https://github.com/xuexiangjys/XUI/wiki) UI
   #### 7、![PictureSelector](https://github.com/LuckSiege/PictureSelector) 图片选择
-  #### 8、Retrofit2 网络请求框架
+  #### 8、Retrofit2 网络请求
   #### 9、![Compressor](https://github.com/zetbaitsu/Compressor) 图片压缩
-  #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉刷新
-  #### 11、![Butterknife](https://github.com/JakeWharton/butterknife) View注入框架
+  #### 10、![SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) 下拉刷新库
+  #### 11、![Butterknife](https://github.com/JakeWharton/butterknife) View注入
 
   
