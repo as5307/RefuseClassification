@@ -42,7 +42,6 @@ public abstract class BaseObserver<T> implements Observer<BaseReponse<T>> {
 
     public abstract void onSuccess(List<T>  list) throws JSONException;
 
-
     public abstract void onFailure(Throwable throwable,String errorMag );
 
 }

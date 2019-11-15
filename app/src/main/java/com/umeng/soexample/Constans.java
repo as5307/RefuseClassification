@@ -11,6 +11,13 @@ import java.util.List;
 */
 public class Constans {
 
+    // 获取token地址
+    public final static String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
+    // 官网获取的 API Key 更新为你注册的
+    public final static String clientId = "64EbWZMY653g1H4N8zLiPGE1";
+    // 官网获取的 Secret Key 更新为你注册的
+    public final static String clientSecret = "Q90BipsuoycjqUGeMxA1enakpaLlYTf9";
+
     /*
     垃圾分类api
     */

@@ -29,7 +29,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
-
+/*
+* 头条
+* */
 public class NewsFragment extends BaseFragment implements BeanCallback.OnNewsListeners {
 
     @BindView(R.id.recyclerView)

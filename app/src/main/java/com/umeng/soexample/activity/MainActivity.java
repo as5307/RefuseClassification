@@ -162,12 +162,10 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
                 R.id.nav_about)
                 .setDrawerLayout(drawerLayout)
                 .build();
-
         NavController navController = Navigation.findNavController(this, R.id.nav_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
-
 
     @Override
     protected void onStart() {
@@ -218,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             if (requestCode == RESULT) {
                 try {
@@ -243,21 +240,13 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
 
     //图像识别
     public void getAuth(String imgParam) {
-        // 获取token地址
-        String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
-        // 官网获取的 API Key 更新为你注册的
-        String clientId = "64EbWZMY653g1H4N8zLiPGE1";
-        // 官网获取的 Secret Key 更新为你注册的
-        String clientSecret = "Q90BipsuoycjqUGeMxA1enakpaLlYTf9";
-
         FormBody formBody = new FormBody.Builder()
                 .add("grant_type", "client_credentials")
-                .add("client_id", clientId)
-                .add("client_secret", clientSecret)
+                .add("client_id", Constans.clientId)
+                .add("client_secret", Constans.clientSecret)
                 .build();
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url(authHost).post(formBody).build();
-
+        Request request = new Request.Builder().url(Constans.authHost).post(formBody).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -312,6 +301,9 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         openPage(keyword, score, null);
     }
 
+    /*
+    跳转界面
+    */
     private void openPage(String keyword, String score, String type) {
         result2 = new Result(keyword, score, type);
         list_result.add(result2);

@@ -52,8 +52,8 @@ public class Utils  {
     }
 
     /*
-图片选择
-*/
+    图片选择
+    */
     public PictureSelectionModel getPictureSelector(Activity activity) {
         return PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())
@@ -82,8 +82,6 @@ public class Utils  {
 
     /**
      * 进行版本更新检查
-     *
-     * @param context
      */
     public  void checkUpdate(Context context,boolean needErrorTip) {
         sqlMode=new SqlModeImpl();

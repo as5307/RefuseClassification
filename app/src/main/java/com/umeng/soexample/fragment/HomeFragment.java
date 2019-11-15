@@ -51,6 +51,11 @@ import butterknife.Unbinder;
 import cn.bmob.v3.exception.BmobException;
 import io.reactivex.annotations.Nullable;
 
+
+/*
+主页
+*/
+
 public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerListeners {
     @BindView(R.id.bl_horizontal)
     BannerLayout blHorizontal;

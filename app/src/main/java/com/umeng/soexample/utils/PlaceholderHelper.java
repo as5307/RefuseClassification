@@ -15,6 +15,7 @@ import me.samlss.broccoli.PlaceholderParameter;
  */
 public class PlaceholderHelper {
 
+
     public static PlaceholderParameter getParameter(View view) {
         if (view == null) {
             return null;

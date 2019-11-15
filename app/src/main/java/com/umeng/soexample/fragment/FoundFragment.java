@@ -32,6 +32,9 @@ import cn.bmob.v3.listener.FindListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import link.fls.swipestack.SwipeStack;
 
+/*
+* 主页
+* */
 public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStackListener, SqlCallback.OnPostListeners {
     @BindView(R.id.fab_scrolling)
     FloatingActionButton fabScrolling;
@@ -117,23 +120,26 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
    /*
    查询发表的条目
    */
-
     private void queryCount() {
      sqlMode.queryPostInfo(getActivity(),null,this);
     }
 
     @Override
     public void onViewSwipedToLeft(int position) {
+        //向左滑动
         Log.d(TAG, "onViewSwipedToLeft: "+position);
     }
 
     @Override
     public void onViewSwipedToRight(int position) {
+        //向右滑动
         Log.d(TAG, "onViewSwipedToRight: "+position);
     }
 
+
     @Override
     public void onStackEmpty() {
+
         Log.d(TAG, "onStackEmpty: ");
         multipleStatusView.showEmpty();
     }

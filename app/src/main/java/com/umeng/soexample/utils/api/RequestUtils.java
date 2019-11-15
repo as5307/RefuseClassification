@@ -19,12 +19,6 @@ public class  RequestUtils {
                 .subscribe(observer);
     }
 
-    public static void getPopularData(Context context, String key,int type,BaseObserver<Popular> observer){
-        RetrofitUtils.getApiUrl(Constans.BaseUrl).getPopularData(key,type)
-                .compose(RxHelper.observableIO2Main(context))
-                .subscribe(observer);
-    }
-
     public static void getPopularData(Context context, String key,BaseObserver<Popular> observer){
         RetrofitUtils.getApiUrl(Constans.BaseUrl).getPopularData(key)
                 .compose(RxHelper.observableIO2Main(context))

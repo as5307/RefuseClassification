@@ -12,6 +12,9 @@ import com.xuexiang.xutil.app.AppUtils;
 
 import butterknife.BindView;
 
+/*
+* 关于
+* */
 public class AboutFragment extends BaseFragment {
     @BindView(R.id.version)
     TextView version;
