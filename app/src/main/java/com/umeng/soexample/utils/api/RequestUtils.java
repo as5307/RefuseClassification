@@ -5,12 +5,14 @@ import android.content.Context;
 
 import com.umeng.soexample.Constans;
 import com.umeng.soexample.base.BaseObserver;
+import com.umeng.soexample.base.BaseReponse;
 import com.umeng.soexample.bean.Definition;
 import com.umeng.soexample.bean.Information;
 import com.umeng.soexample.bean.Popular;
 
-public class  RequestUtils {
+import io.reactivex.Observer;
 
+public class  RequestUtils {
     public static void getDefinitionData(Context context, String key, String word, BaseObserver<Definition> observer){
         RetrofitUtils.getApiUrl(Constans.BaseUrl).getAllData(key,word)
                 .compose(RxHelper.observableIO2Main(context))
@@ -34,5 +36,4 @@ public class  RequestUtils {
                 .compose(RxHelper.observableIO2Main(context))
                 .subscribe(observer);
     }
-
 }

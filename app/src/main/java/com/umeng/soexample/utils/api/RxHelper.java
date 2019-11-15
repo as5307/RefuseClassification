@@ -26,17 +26,6 @@ public class RxHelper {
         };
     }
 
-    public static <T> ObservableTransformer<T, T> observableIO2Main(final RxFragment fragment) {
-        return upstream -> upstream.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).compose(fragment.<T>bindToLifecycle());
-    }
-
-    public static <T> FlowableTransformer<T, T> flowableIO2Main() {
-        return upstream -> upstream
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
     private static <T> ObservableSource<T> composeContext(Context context, Observable<T> observable) {
         if(context instanceof RxActivity) {
             return observable.compose(((RxActivity) context).bindUntilEvent(ActivityEvent.DESTROY));

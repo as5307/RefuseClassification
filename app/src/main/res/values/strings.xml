@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">啥垃圾助手</string>
+    <string name="app_name">垃圾分类助手</string>
 
 
     <!--垃圾分类-->
@@ -25,7 +25,6 @@
 
     <!--查询-->
 
-
     <string name="result_text">重新测试</string>
 
     <string name="lab_logout_confirm">是否确认退出？</string>
@@ -35,7 +34,6 @@
     <string name="lab_no">否</string>
 
     <!--Tab-->
-
 
     <string name="tabl">主页</string>
 

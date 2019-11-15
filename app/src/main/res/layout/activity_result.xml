@@ -14,7 +14,7 @@
         android:background="@color/xui_config_color_titlebar"
         app:tb_barHeight="65dp"
         app:tb_dividerColor="@color/xui_config_color_red"
-        app:tb_leftImageResource="@drawable/ic_arrow_back" />
+        app:tb_leftImageResource="@drawable/icon_back_white" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_title"
@@ -24,7 +24,6 @@
         android:scaleType="centerCrop" />
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -33,40 +32,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/result" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="物品名称"
-                android:paddingEnd="20dp"
-                android:paddingStart="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="置信度"
-                android:paddingEnd="20dp"
-                android:paddingStart="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="类别"
-                android:paddingEnd="20dp"
-                android:paddingStart="10dp"/>
-
-        </LinearLayout>
+            android:text="@string/result"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"/>
 
         <TableLayout
             android:id="@+id/table_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:stretchColumns="0,1,2">
         </TableLayout>
     </LinearLayout>
 </LinearLayout>

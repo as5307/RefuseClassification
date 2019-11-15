@@ -49,7 +49,6 @@ public class RetrofitUtils {
         return retrofit;
     }
 
-
     public static OkHttpClient initOkHttp(){
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
                 .readTimeout(Constans.DEFAULT_TIME,TimeUnit.SECONDS)

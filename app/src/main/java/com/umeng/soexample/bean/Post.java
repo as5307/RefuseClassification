@@ -10,15 +10,10 @@ import cn.bmob.v3.datatype.BmobRelation;
 */
 
 public class Post extends BmobObject {
-    private String userIcon; //头像
-    private String userName;  // 名字
-    private String content;   // 说说内容
-
-    private String userId;
-
+    private String title;   // 标题
+    private User user; //用户
     private String headImgUrl; //图片的UR
     private boolean haveIcon;  //判断是否有图片
-
 
     private BmobRelation rvote;
     private BmobRelation hvote;
@@ -67,34 +62,6 @@ public class Post extends BmobObject {
         this.headImgUrl = headImgUrl;
     }
 
-
-
-    public String getUserIcon() {
-        return userIcon;
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-
-
     public boolean isHaveIcon() {
         return haveIcon;
     }
@@ -103,11 +70,30 @@ public class Post extends BmobObject {
         this.haveIcon = haveIcon;
     }
 
-    public String getUserId() {
-        return userId;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", user=" + user +
+                ", headImgUrl='" + headImgUrl + '\'' +
+                ", haveIcon=" + haveIcon +
+                '}';
     }
 }

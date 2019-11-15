@@ -59,14 +59,7 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    @BindView(R.id.iv_recycling)
-    ImageView ivRecycling;
-    @BindView(R.id.iv_harmfulwaste)
-    ImageView ivHarmfulwaste;
-    @BindView(R.id.iv_wetgarbage)
-    ImageView ivWetgarbage;
-    @BindView(R.id.iv_drygarbage)
-    ImageView ivDrygarbage;
+
     @BindView(R.id.search_view)
     EditText searchView;
 
@@ -110,10 +103,23 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
 
     private List<Guide> list_guide;
 
+    private TabLayout.Tab tab_one;
+    private TabLayout.Tab tab_two;
+    private TabLayout.Tab tab_three;
+    private TabLayout.Tab tab_four;
+
 
     @Override
     protected void initView() {
         mobMode = new SqlModeImpl();
+        tabLayout.addTab(tabLayout.newTab().setText( Constans.type[0]));
+        tabLayout.addTab(tabLayout.newTab().setText( Constans.type[1]));
+        tabLayout.addTab(tabLayout.newTab().setText( Constans.type[2]));
+        tabLayout.addTab(tabLayout.newTab().setText( Constans.type[3]));
+        tab_one=tabLayout.getTabAt(3);
+        tab_two=tabLayout.getTabAt(2);
+        tab_three=tabLayout.getTabAt(1);
+        tab_four=tabLayout.getTabAt(0);
         list_guide=Constans.getGuideData();
 
     }
@@ -129,6 +135,10 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
     protected void initData() {
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tab_one.setIcon(R.drawable.ic_recyclable);
+        tab_two.setIcon(R.drawable.ic_harmful);
+        tab_three.setIcon(R.drawable.ic_dry);
+        tab_four.setIcon(R.drawable.ic_wet);
         getBannerData();
     }
 
@@ -247,7 +257,7 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
     }
 
     private void getBannerData() {
-        mobMode.getBannerDataInfo(getActivity(), this);
+        mobMode.queryBannerInfo(getActivity(), this);
     }
 
     @Override
@@ -258,10 +268,9 @@ public class HomeFragment extends BaseFragment implements SqlCallback.OnBannerLi
 
 
     @Override
-    public void onBanner(List<Banner> t, BmobException e) {
+    public void onSuccess(List<Banner> t, BmobException e) {
         blHorizontal.setAdapter(new RecyclerViewBannerAdapter(t));
     }
-
 
     public class ItemView extends FrameLayout {
         @BindView(R.id.iv_title)

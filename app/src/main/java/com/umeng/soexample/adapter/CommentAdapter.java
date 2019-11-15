@@ -63,6 +63,7 @@ public class CommentAdapter extends BaseAdapter {
             holder.tvCommContent.setVisibility(View.VISIBLE);
             holder.tvCommContent.setText(mycontent);
         }
+        holder.commTime.setText(comment.getCreatedAt());
         holder.tvCommAuthor.setText(comment.getName());
         ImageLoader.get().loadImage(holder.commentItemIcon,comment.getUserHead());
         return view;

@@ -51,7 +51,7 @@ public class MyHelperFragment extends BaseFragment implements SqlCallback.OnPost
 
     @Override
     protected void initListeners() {
-        sqlMode.queryPostInfo(getActivity(), Hawk.get("userId"),this);
+        sqlMode.queryPostInfo(getActivity(),"user",this);
     }
 
     @Override

@@ -31,7 +31,6 @@ public class FileUtil {
         return sb.toString();
     }
 
-
     public static byte[] readFileByBytes(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {

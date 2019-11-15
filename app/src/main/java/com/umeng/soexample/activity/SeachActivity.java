@@ -111,8 +111,7 @@ public class SeachActivity extends BaseActivity implements BeanCallback.OnBasicG
                 if (list_name.contains(query)){
                     String name=list_name.get(0);
                     String type=list_type.get(0);
-                    String hint=name + "是" + type;
-                    DialogUntil.getInstance().showHintBox(SeachActivity.this, hint);
+                    DialogUntil.getInstance().showCustomBox(SeachActivity.this,name,type);
                 }else {
                     DialogUntil.getInstance().showHintBox(SeachActivity.this, "查不到相关信息");
                 }

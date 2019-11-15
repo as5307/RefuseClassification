@@ -1,5 +1,7 @@
 package com.umeng.soexample.utils;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -52,7 +54,7 @@ public class HttpUtil {
         Map<String, List<String>> headers = connection.getHeaderFields();
 
         for (String key : headers.keySet()) {
-            System.err.println(key + "--->" + headers.get(key));
+            Log.d("aaa",key + "--->" + headers.get(key));
         }
 
         BufferedReader in = null;
@@ -64,7 +66,6 @@ public class HttpUtil {
             result += getLine;
         }
         in.close();
-        System.err.println("result:" + result);
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.umeng.soexample.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,7 +44,17 @@ public class AboutFragment extends BaseFragment {
                             public void onClick(View v) {
                                 Utils.getInstance().checkUpdate(getActivity(),true);
                             }
-                        }).addTo(aboutList);
+                        })
+                .addItemView(aboutList.createItemView("GitHub主页"), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("url", "https://github.com/as5307/RefuseClassification");
+                        bundle.putString("title", "GitHub");
+                        Utils.getInstance().goWeb(getActivity(),bundle);
+                    }
+                })
+                .addTo(aboutList);
 
     }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -29,7 +30,6 @@ public class ResultActivity extends BaseActivity {
     ImageView ivTitle;
     @BindView(R.id.table_layout)
     TableLayout tableLayout;
-
 
     private ArrayList<Result> list_result;
 
@@ -77,23 +77,40 @@ public class ResultActivity extends BaseActivity {
     @SuppressLint("SetTextI18n")
     private void addView() {
         if (list_result != null) {
-            for (int i = 0; i < list_result.size(); i++) {
-                Result result = list_result.get(i);
+            for (int i = 0; i < list_result.size()+1; i++) {
                 tableRow = new TableRow(this);
                 tableRow.setBackgroundColor(Color.parseColor("#ffffff"));
                 tableLayout.addView(tableRow);
-                for (int a = 0; a < 3; a++) {
-                    textView = new TextView(this);
-                    if (a == 0) {
-                        textView.setText(result.getKeyword());
-                    } else if (a == 1) {
-                        textView.setText(result.getScore());
-                    } else {
-                        textView.setText(result.getType());
+                if (i==0){
+                    for (int a = 0; a < 3; a++) {
+                        textView = new TextView(this);
+                        if (a == 0) {
+                            textView.setText("物品名称");
+                        } else if (a == 1) {
+                            textView.setText("置信度");
+                        } else {
+                            textView.setText("类别");
+                        }
+                        textView.setGravity(Gravity.CENTER);
+                        textView.setTextSize(15);
+                        tableRow.addView(textView);
                     }
-                    textView.setTextSize(15);
-                    textView.setPadding(20, 10, 20, 10);
-                    tableRow.addView(textView);
+                }else {
+                    Result result = list_result.get(i-1);
+
+                    for (int a = 0; a < 3; a++) {
+                        textView = new TextView(this);
+                        if (a == 0) {
+                            textView.setText(result.getKeyword());
+                        } else if (a == 1) {
+                            textView.setText(result.getScore());
+                        } else {
+                            textView.setText(result.getType());
+                        }
+                        textView.setGravity(Gravity.CENTER);
+                        textView.setTextSize(15);
+                        tableRow.addView(textView);
+                    }
                 }
             }
         } else {

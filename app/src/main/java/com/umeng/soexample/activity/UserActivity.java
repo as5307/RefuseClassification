@@ -52,7 +52,7 @@ public class UserActivity extends BaseActivity {
         btnBtnQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Hawk.put("isLogin", false);
+                Hawk.put("userId", null);
                 Hawk.put("name", null);
                 Hawk.put("imageUrl", null);
                 finish();

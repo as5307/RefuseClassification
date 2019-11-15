@@ -74,7 +74,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements BeanCallback.OnBasicGarbageListeners, LoginCallback, SqlCallback.OnAddListeners,SqlCallback.OnIdDataListeners {
+public class MainActivity extends AppCompatActivity implements BeanCallback.OnBasicGarbageListeners, LoginCallback, SqlCallback.OnAddListeners, SqlCallback.OnIdDataListeners {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.nav_view)
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         relativeLayout = navView.getHeaderView(0).findViewById(R.id.rl_head);
         mediaList = new ArrayList<>();
         loginMode = new LoginNodeImpl();
-        sqlMode=new SqlModeImpl();
+        sqlMode = new SqlModeImpl();
         setSupportActionBar(toolbar);
         initListeners();
         initView();
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     }
 
     private void initView() {
-        Utils.getInstance().checkUpdate(this,false);
+        Utils.getInstance().checkUpdate(this, false);
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_found,
@@ -172,11 +172,11 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     @Override
     protected void onStart() {
         super.onStart();
-        if (Hawk.get("name")!=null&& Hawk.get("imageUrl")!=null){
+        if (Hawk.get("userId") != null) {
             ImageLoader.get().loadImage(imageView, Hawk.get("imageUrl"));
             textView.setText(Hawk.get("name"));
-        }else {
-            ImageLoader.get().loadImage(imageView, "http://tianping.hellgirl.top/2019/10/23/b2bef3cd407e571d804f2f5aada1d27d.png");
+        } else {
+            ImageLoader.get().loadImage(imageView, R.drawable.ic_head);
             textView.setText("登录");
         }
     }
@@ -185,14 +185,14 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Hawk.get("name")!=null&& Hawk.get("imageUrl")!=null) {
+                if (Hawk.get("userId") != null) {
                     Intent intent = new Intent(MainActivity.this, UserActivity.class);
                     intent.putExtra("user_head", imageUrl);
                     intent.putExtra("user_name", name);
                     startActivity(intent);
                 } else {
                     View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_bottom_dialog, null);
-                    DialogUntil.getInstance().showBottomDialog(MainActivity.this,view);
+                    DialogUntil.getInstance().showBottomDialog(MainActivity.this, view);
                 }
             }
         });
@@ -218,9 +218,11 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK) {
             if (requestCode == RESULT) {
                 try {
+                    DialogUntil.getInstance().showMinLoadBox(MainActivity.this,"正在识别中......");
                     mediaList = PictureSelector.obtainMultipleResult(data);
                     File file = new File(mediaList.get(0).getPath());
                     File compress = Compressor.getDefault(MainActivity.this).compressToFile(file);
@@ -300,19 +302,21 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
 
     @Override
     public void onBasicSuccess(List<Definition> list, String keyword, String score) throws JSONException {
-            openPage(keyword,score,tpye[list.get(0).getType()]);
+        openPage(keyword, score, tpye[list.get(0).getType()]);
 
     }
+
     @Override
     public void onBasicError(Throwable throwable, String errorMag, String keyword, String score) {
-          Log.e(TAG, "onBasicError: " + errorMag);
-          openPage(keyword,score,"检测不到");
+        Log.e(TAG, "onBasicError: " + errorMag);
+        openPage(keyword, score, null);
     }
 
-    private void  openPage(String keyword,String score,String type){
+    private void openPage(String keyword, String score, String type) {
         result2 = new Result(keyword, score, type);
         list_result.add(result2);
         if (list_result.size() == 5) {
+            DialogUntil.getInstance().hideMainLoad();
             Bundle bundle = new Bundle();
             bundle.putSerializable("result", list_result);
             bundle.putString("image_path", imagePath);
@@ -324,21 +328,30 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
         }
     }
 
-    public void weixinLogin(View view) {
+    /*
+    微信登录
+    */
 
+    public void weixinLogin(View view) {
         loginMode.login(this, Wechat.NAME, this);
     }
 
+
+    /*
+    QQ微信登录
+    */
     public void qqLogin(View view) {
         loginMode.login(this, QQ.NAME, this);
     }
 
+    /*
+    微博登录
+    */
     public void sinaLogin(View view) {
         loginMode.login(this, SinaWeibo.NAME, this);
     }
 
     //获取QQ。微信.微博的数据
-
     private void getUsetInfo(Platform platform) {
         //输出所有授权信息
         DialogUntil.getInstance().hideLoad();
@@ -358,17 +371,20 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
                 textView.setText(name);
             }
         });
-        Hawk.put("userId",userId);
+        Hawk.put("userId", userId);
         Hawk.put("name", name);
         Hawk.put("imageUrl", imageUrl);
-        Hawk.put("isLogin", true);
 
-        sqlMode.addDataSql(this, name,imageUrl,userId,this);
+        sqlMode.addDataSql(this, name, imageUrl, userId, this);
     }
+
+
+    /*
+    登录回调接口
+    */
 
     @Override
     public void onError(String mag, Throwable arg2) {
-        Log.e(TAG, "授权失败" + mag);
         DialogUntil.getInstance().hideLoad();
 
     }
@@ -381,21 +397,20 @@ public class MainActivity extends AppCompatActivity implements BeanCallback.OnBa
     @Override
     public void onCancel() {
         // 取消所有授权信息
-        Log.d(TAG, "取消授权");
         DialogUntil.getInstance().hideLoad();
     }
 
     @Override
     public void onAddSuccees(String s, BmobException e) {
-            if (e==null){
-                Hawk.put("objectId",s);
-            }else {
-                sqlMode.queryObjectId(this,userId,this);
-            }
+        if (e == null) {
+            Hawk.put("objectId", s);
+        } else {
+            sqlMode.queryObjectId(this, userId, this);
+        }
     }
 
     @Override
     public void onIdDataSuccess(List<User> t, BmobException e) {
-         Hawk.put("objectId",t.get(0).getObjectId());
+        Hawk.put("objectId", t.get(0).getObjectId());
     }
 }

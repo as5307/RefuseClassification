@@ -25,6 +25,7 @@
         app:bl_itemSpace="10dp"
         app:bl_moveSpeed="1.8" />
 
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
             android:layout_weight="1"
             android:src="@drawable/ic_dry" />
     </LinearLayout>
+-->
 
     <RelativeLayout
         android:layout_width="match_parent"

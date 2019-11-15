@@ -61,7 +61,6 @@ public abstract class BaseFragment extends Fragment {
         unbinder.unbind();
     }
 
-
     public void openPage(Class<?> c){
         Intent intent=new Intent(getActivity(),c);
         startActivity(intent);

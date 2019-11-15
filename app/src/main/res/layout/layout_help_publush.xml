@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/xui_config_color_titlebar"
-        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIcon="@drawable/icon_back_white"
         app:titleTextColor="@color/xui_config_color_white" />
 
     <LinearLayout

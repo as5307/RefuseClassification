@@ -10,12 +10,8 @@ public class DrawableUtils {
     private DrawableUtils() {
         throw new UnsupportedOperationException("Can not be instantiated.");
     }
-
     /**
      * 矩形
-     * @param color
-     * @param cornerRadius
-     * @return
      */
     public static GradientDrawable createRectangleDrawable(int color, float cornerRadius) {
         GradientDrawable gradientDrawable = new GradientDrawable();
@@ -27,8 +23,6 @@ public class DrawableUtils {
 
     /**
      * 圆形
-     * @param color
-     * @return
      */
     public static GradientDrawable createOvalDrawable(int color) {
         GradientDrawable gradientDrawable = new GradientDrawable();
@@ -36,5 +30,4 @@ public class DrawableUtils {
         gradientDrawable.setColor(color);
         return gradientDrawable;
     }
-
 }

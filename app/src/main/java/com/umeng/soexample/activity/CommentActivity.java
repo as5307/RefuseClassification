@@ -204,8 +204,8 @@ public class CommentActivity extends BaseActivity {
 
     @OnClick(R.id.btn_write)
     public void onViewClicked() {
-        if (Hawk.get("name")!=null&& Hawk.get("imageUrl")!=null) {
-            DialogUntil.getInstance().showInputComment(this, "关于<" + posttitle + ">" + "之垃圾分类看法", new MaterialDialog.InputCallback() {
+        if (Hawk.get("userId")!=null) {
+            DialogUntil.getInstance().showInputBox(this, "关于<" + posttitle + ">" + "之垃圾分类看法", new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog materialDialog, CharSequence charSequence) {
                             Log.d(TAG, "onInput: " + charSequence.toString());
@@ -224,6 +224,5 @@ public class CommentActivity extends BaseActivity {
             DialogUntil.getInstance().showHintBox(CommentActivity.this, "请先登录");
         }
     }
-
 }
 

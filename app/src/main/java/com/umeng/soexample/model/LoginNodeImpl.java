@@ -1,6 +1,7 @@
 package com.umeng.soexample.model;
 
 import android.app.Activity;
+import android.util.Log;
 
 
 import com.umeng.soexample.Callback.LoginCallback;
@@ -29,6 +30,7 @@ public class LoginNodeImpl implements LoginMode {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                 //登录成功
+                Log.d(TAG, "成功登陆");
                 loginCallback.onSuccess(platform);
 
             }
@@ -36,6 +38,7 @@ public class LoginNodeImpl implements LoginMode {
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
                 //授权失败
+                Log.e(TAG, "授权失败" + throwable);
                 loginCallback.onError(throwable.getMessage(), throwable);
             }
 
@@ -43,6 +46,7 @@ public class LoginNodeImpl implements LoginMode {
             @Override
             public void onCancel(Platform platform, int i) {
                 //授权取消
+                Log.d(TAG, "取消授权");
                 loginCallback.onCancel();
 
             }

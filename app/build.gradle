@@ -8,8 +8,8 @@ android {
         applicationId "com.umeng.soexample"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -132,21 +132,15 @@ dependencies {
     //解决4.x运行崩溃的问题
     implementation 'com.android.support:multidex:1.0.3'
 
-
     //工具类
     implementation 'com.github.xuexiangjys.XUtil:xutil-core:1.1.6'
     implementation 'com.github.xuexiangjys.XUtil:xutil-sub:1.1.6'
 
-    //防重库
-    implementation 'com.github.jarryleo:SingleClick:v1.8.3'
-
     //预加载占位控件
     implementation 'me.samlss:broccoli:1.0.0'
 
-    //WebView
+
     implementation 'com.github.xuexiangjys.AgentWeb:agentweb-core:1.0.0'
-
-
 
     implementation 'link.fls:swipestack:0.3.0'
 

@@ -24,5 +24,4 @@ public interface ApiUrl {
 
     @GET(Constans.Retrofit3)
     Observable<BaseReponse<Information>>  getInformationData(@Query("key") String key,@Query("word") String word,@Query("num")int num);
-
 }

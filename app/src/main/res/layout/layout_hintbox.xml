@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_hint_goods"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="物品"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_hint_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="干垃圾"
+        android:layout_gravity="center_vertical"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_hint_type"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_dry" />
+</LinearLayout>

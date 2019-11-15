@@ -58,14 +58,14 @@ public class HelperAdapter extends BaseRecyclerAdapter<Post> {
                 Log.d("aaa", "onClick: ");
                 Intent intent = new Intent(context, CommentActivity.class);
                 intent.putExtra("post_objectId", post.getObjectId());
-                intent.putExtra("post_title", post.getContent());
+                intent.putExtra("post_title", post.getTitle());
                 if (post.isHaveIcon()) {
                     intent.putExtra("post_image", post.getHeadImgUrl());
                 }
                 context.startActivity(intent);
             }
         });
-        textView.setText(post.getContent());
+        textView.setText(post.getTitle());
     }
 
     /*

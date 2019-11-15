@@ -23,8 +23,11 @@ import com.umeng.soexample.Callback.SqlCallback;
 import com.umeng.soexample.R;
 import com.umeng.soexample.base.BaseActivity;
 import com.umeng.soexample.bean.Post;
+import com.umeng.soexample.bean.User;
 import com.umeng.soexample.model.SqlMode;
 import com.umeng.soexample.model.SqlModeImpl;
+import com.umeng.soexample.utils.DialogUntil;
+import com.umeng.soexample.utils.Utils;
 import com.xuexiang.xui.widget.imageview.ImageLoader;
 
 import java.io.File;
@@ -51,7 +54,6 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
 
 
     private String title_image;
-    private String tvName;
     private int size = 0;
     private String time;
     private String objectKey;
@@ -63,13 +65,14 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
 
     private String TAG = this.getClass().getCanonicalName();
 
-    private ProgressDialog dialog;
     private SqlMode mobMode;
 
     private List<LocalMedia> mediaList;
     private static final int RESULT = 1;
 
     private Post post;
+
+    private User user;
 
 
     @Override
@@ -82,7 +85,6 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
         list = new ArrayList<>();
         mediaList = new ArrayList<>();
         mobMode = new SqlModeImpl();
-        tvName = Hawk.get("name");
         imageUrl = Hawk.get("imageUtl");
 
     }
@@ -111,8 +113,6 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
                 return true;
             }
         });
-
-
     }
 
     /**
@@ -123,10 +123,10 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
         post = new Post();
-        post.setContent(etContent.getText().toString());
-        post.setUserName(tvName);
-        post.setUserIcon(title_image);
-        post.setUserId(Hawk.get("userId"));
+        user=new User();
+        user.setObjectId(Hawk.get("objectId"));
+        post.setTitle(etContent.getText().toString());
+        post.setUser(user);
         if (size == 0) {
             post.setHaveIcon(false);
             post.save(new SaveListener<String>() {
@@ -147,16 +147,9 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
         final String filePaths = mediaList.get(0).getPath();
         File file = new File(filePaths);
         File compress = Compressor.getDefault(PublushActivity.this).compressToFile(file);
-        dialog = new ProgressDialog(PublushActivity.this);
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        dialog.setTitle("上传图片中...");
-        dialog.setIndeterminate(false);
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        DialogUntil.getInstance().showProgressDialog(this);
         mobMode.uploadFileDataSql(compress.getPath(),this );
     }
-
 
     /*
    图片选取的回调
@@ -175,22 +168,6 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
         }
     }
 
-
-    /*
-    图片选择
-    */
-
-    public PictureSelectionModel getPictureSelector() {
-        return PictureSelector.create(this)
-                .openGallery(PictureMimeType.ofImage())
-                .selectionMode(PictureConfig.SINGLE)
-                .previewImage(true)
-                .isCamera(true)
-                .enableCrop(false)
-                .compress(true)
-                .previewEggs(true);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -199,18 +176,14 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
     }
 
     public void changImage(View view) {
-        getPictureSelector().selectionMedia(mediaList).forResult(RESULT);
+        Utils.getInstance().getPictureSelector(this).selectionMedia(mediaList).forResult(RESULT);
     }
 
     @Override
     public void onUploadSuccess(String imagurl, BmobException e) {
         if (e == null) {
-            Log.d(TAG, "onUploadSuccess: " + imagurl);
-            Log.d(TAG, "111111111111111111111111111" );
             post.setHeadImgUrl(imagurl);
-            Log.d(TAG, "2222222222222222222222" );
             post.setHaveIcon(true);
-            Log.d(TAG, "333333333333333333333333" );
             post.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {
@@ -226,11 +199,11 @@ public class PublushActivity extends BaseActivity implements SqlCallback.Onuploa
     }
     @Override
     public void onUploadProgress(Integer value) {
-        dialog.setProgress(value);
+        DialogUntil.getInstance().setProgress(value);
     }
 
     @Override
-    public void onUploadError(int code, String msg) {   Log.d(TAG, "onUploadError: " + msg);
-        dialog.dismiss();
+    public void onUploadError(int code, String msg) {
+        DialogUntil.getInstance().hideProgress();
     }
 }

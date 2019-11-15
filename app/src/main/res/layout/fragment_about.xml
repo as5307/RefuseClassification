@@ -50,7 +50,5 @@
                 android:textColor="@color/xui_config_color_gray_7" />
 
         </LinearLayout>
-
     </ScrollView>
-
 </LinearLayout>

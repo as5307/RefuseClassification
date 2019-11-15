@@ -32,13 +32,8 @@ public class SqlCallback {
         void onSuccess(String url, BmobException e);
     }
 
-    public interface OnLineDataListeners {
-        void onSuccess(User user, BmobException e);
-    }
-
-
     public interface OnBannerListeners {
-        void onBanner(List<Banner> t, BmobException e);
+        void onSuccess(List<Banner> t, BmobException e);
     }
 
     //添加数据

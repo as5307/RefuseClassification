@@ -15,10 +15,6 @@ import me.samlss.broccoli.PlaceholderParameter;
  */
 public class PlaceholderHelper {
 
-    private PlaceholderHelper() {
-        throw new UnsupportedOperationException("Can not be instantiated.");
-    }
-
     public static PlaceholderParameter getParameter(View view) {
         if (view == null) {
             return null;
@@ -47,9 +43,6 @@ public class PlaceholderHelper {
     /**
      * 圆形的占位
      *
-     * @param view
-     * @param placeHolderColor
-     * @return
      */
     private static PlaceholderParameter getOvalPlaceholder(View view, int placeHolderColor) {
         return getPlaceholder(view, DrawableUtils.createOvalDrawable(placeHolderColor));
@@ -57,11 +50,6 @@ public class PlaceholderHelper {
 
     /**
      * 矩形的占位
-     *
-     * @param view
-     * @param placeHolderColor
-     * @param cornerRadius
-     * @return
      */
     private static PlaceholderParameter getRectanglePlaceholder(View view, int placeHolderColor, int cornerRadius) {
         return getPlaceholder(view, DrawableUtils.createRectangleDrawable(placeHolderColor, cornerRadius));

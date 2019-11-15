@@ -24,7 +24,7 @@
         android:id="@+id/nav_news"
         android:name="com.umeng.soexample.fragment.NewsFragment"
         tools:layout="@layout/fragment_news"
-        android:label="新闻">
+        android:label="头条">
     </fragment>
 
     <fragment

@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.orhanobut.hawk.Hawk;
+import com.umeng.soexample.Callback.SqlCallback;
 import com.umeng.soexample.R;
 import com.umeng.soexample.activity.PublushActivity;
 import com.umeng.soexample.activity.SeachActivity;
 import com.umeng.soexample.adapter.FoundAdapter;
 import com.umeng.soexample.base.BaseFragment;
 import com.umeng.soexample.bean.Post;
+import com.umeng.soexample.model.SqlMode;
+import com.umeng.soexample.model.SqlModeImpl;
 import com.umeng.soexample.utils.DialogUntil;
 import com.xuexiang.xui.widget.statelayout.MultipleStatusView;
 import com.xuexiang.xutil.tip.ToastUtils;
@@ -29,7 +32,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import link.fls.swipestack.SwipeStack;
 
-public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStackListener {
+public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStackListener, SqlCallback.OnPostListeners {
     @BindView(R.id.fab_scrolling)
     FloatingActionButton fabScrolling;
     @BindView(R.id.swipeStack)
@@ -43,16 +46,19 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
 
     private List<Post> mlist;
 
+    private SqlMode sqlMode;
+
 
     @Override
     protected void initView() {
+        sqlMode=new SqlModeImpl();
         multipleStatusView.showLoading();
         foundAdapter = new FoundAdapter(getActivity());
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_seekhelp;
+        return R.layout.fragment_found;
     }
 
     @Override
@@ -113,22 +119,7 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
    */
 
     private void queryCount() {
-        BmobQuery<Post> query = new BmobQuery<Post>();
-        query.order("-createdAt");
-        query.findObjects(new FindListener<Post>() {
-            @Override
-            public void done(List<Post> list, BmobException e) {
-                if (e == null) {
-                    Log.d(TAG, "成功");
-                    foundAdapter.addItem(list);
-                    swipeStack.resetStack();
-                    multipleStatusView.showContent();
-
-                } else {
-                    Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
-                }
-            }
-        });
+     sqlMode.queryPostInfo(getActivity(),null,this);
     }
 
     @Override
@@ -145,5 +136,16 @@ public class FoundFragment extends BaseFragment implements SwipeStack.SwipeStack
     public void onStackEmpty() {
         Log.d(TAG, "onStackEmpty: ");
         multipleStatusView.showEmpty();
+    }
+
+    @Override
+    public void onSuccess(List<Post> t, BmobException e) {
+        if (e == null) {
+            foundAdapter.addItem(t);
+            swipeStack.resetStack();
+            multipleStatusView.showContent();
+        } else {
+            Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+        }
     }
 }

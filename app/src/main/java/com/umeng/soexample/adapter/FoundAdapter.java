@@ -19,6 +19,7 @@ package com.umeng.soexample.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import com.umeng.soexample.R;
 import com.umeng.soexample.activity.CommentActivity;
 import com.umeng.soexample.bean.Post;
 import com.umeng.soexample.bean.User;
+import com.umeng.soexample.utils.DialogUntil;
 import com.xuexiang.xui.widget.imageview.ImageLoader;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 
@@ -124,18 +126,22 @@ public class FoundAdapter extends BaseAdapter {
         queryVote(viewHolder.rbDry, "dvote");
 
         Log.d(TAG, "getView: " + post.toString());
-        viewHolder.postUsername.setText(post.getUserName());
-        viewHolder.tvQuestion.setText("你认为" + "<" + post.getContent() + ">" + "属于?");
+        viewHolder.postUsername.setText(post.getUser().getName());
+        viewHolder.tvQuestion.setText("你认为" + "<" + post.getTitle() + ">" + "属于?");
 
         number = mItems.size() - position;
         viewHolder.tvCount.setText("第" + number + "个求助");
-        ImageLoader.get().loadImage(viewHolder.userIcon, post.getUserIcon());
+        ImageLoader.get().loadImage(viewHolder.userIcon, post.getUser().getImageUrl());
 
         viewHolder.postShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 post = mItems.get(position);
-                showShare(post, "你认为" + "<" + post.getContent() + ">" + "属于?");
+                if (TextUtils.isEmpty(Hawk.get("userId"))){
+                    DialogUntil.getInstance().showHintBox(context,"请先登录");
+                }else {
+                    showShare(post, "你认为" + "<" + post.getTitle() + ">" + "属于?");
+                }
             }
         });
 
@@ -145,7 +151,7 @@ public class FoundAdapter extends BaseAdapter {
                 post = mItems.get(position);
                 Intent intent = new Intent(context, CommentActivity.class);
                 intent.putExtra("post_objectId", post.getObjectId());
-                intent.putExtra("post_title", post.getContent());
+                intent.putExtra("post_title", post.getTitle());
                 if (post.isHaveIcon()) {
                     intent.putExtra("post_image", post.getHeadImgUrl());
                 }
@@ -157,26 +163,22 @@ public class FoundAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.d(TAG, "onCheckedChanged: " + checkedId);
+                post = mItems.get(position);
                 switch (checkedId) {
                     case R.id.rb_recyclable:
-
                         Log.d(TAG, "recyclable: ");
-                        post = mItems.get(position);
                         setVote(Hawk.get("objectId"),viewHolder.rbRecyclable,checkedId,"rvote");
                         break;
                     case R.id.rb_harmful:
                         Log.d(TAG, "harmful: ");
-                        post = mItems.get(position);
                         setVote(Hawk.get("objectId"),viewHolder.rbHarmful,checkedId,"hvote");
                         break;
                     case R.id.rb_dry:
                         Log.d(TAG, "dry: ");
-                        post = mItems.get(position);
                         setVote(Hawk.get("objectId"),viewHolder.rbDry,checkedId,"dvote");
                         break;
                     case R.id.rb_wet:
                         Log.d(TAG, "wet: ");
-                        post = mItems.get(position);
                         setVote(Hawk.get("objectId"),viewHolder.rbWet,checkedId,"wvote");
                         break;
                 }
@@ -193,7 +195,7 @@ public class FoundAdapter extends BaseAdapter {
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle(post.getUserName() + "分享了内容");
+        oks.setTitle(post.getUser().getName() + "分享了内容");
         oks.setText(tilte);
         oks.show(context);
     }

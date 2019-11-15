@@ -15,6 +15,4 @@
         app:navGraph="@navigation/moblie_navigation"
         app:defaultNavHost="true"
         android:layout_weight="1"/>
-
-
 </LinearLayout>

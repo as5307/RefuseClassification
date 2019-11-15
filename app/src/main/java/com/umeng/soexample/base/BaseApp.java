@@ -1,20 +1,15 @@
-package com.umeng.soexample;
+package com.umeng.soexample.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
-import android.widget.ImageView;
 
 import androidx.multidex.MultiDex;
 
-
-
-
 import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
-import com.umeng.soexample.utils.update.CustomUpdateDownloader;
+import com.umeng.soexample.BuildConfig;
 import com.umeng.soexample.utils.update.OKHttpUpdateHttpService;
 import com.xuexiang.xui.XUI;
 import com.xuexiang.xupdate.XUpdate;
@@ -23,17 +18,7 @@ import com.xuexiang.xutil.XUtil;
 
 import cn.bmob.v3.Bmob;
 
-public class MyAppliaction extends Application {
-
-    private String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-    private String accessKeyId = "LTAIRZWh5VHKraJB";
-    private String accessKeySecret = "fky1WHCT3KRpwDanKQf9ZJdEA7w9jM";
-
-
-    //设置百度APPID/AK/SK
-    public static final String APP_ID = "17144408";
-    public static final String API_KEY = "64EbWZMY653g1H4N8zLiPGE1";
-    public static final String SECRET_KEY = "Q90BipsuoycjqUGeMxA1enakpaLlYTf9";
+public class BaseApp extends Application {
 
 
     @Override
@@ -72,7 +57,6 @@ public class MyAppliaction extends Application {
                 .param("appKey", this.getPackageName())
                 //这个必须设置！实现网络请求功能。
                 .setIUpdateHttpService(new OKHttpUpdateHttpService())
-                .setIUpdateDownLoader(new CustomUpdateDownloader())
                 //这个必须初始化
                 .init(this);
 
@@ -87,4 +71,3 @@ public class MyAppliaction extends Application {
         }
     }
 }
-

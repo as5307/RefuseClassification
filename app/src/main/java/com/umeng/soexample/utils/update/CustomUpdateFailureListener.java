@@ -11,10 +11,6 @@ public class CustomUpdateFailureListener implements OnUpdateFailureListener {
      */
     private boolean mNeedErrorTip;
 
-    public CustomUpdateFailureListener() {
-        this(true);
-    }
-
     public CustomUpdateFailureListener(boolean needErrorTip) {
         mNeedErrorTip = needErrorTip;
     }
